@@ -1344,3 +1344,30 @@ pre .javascript .function {
   margin-right: 5px;
   display: inline-block;
 }
+
+.article-entry blockquote {
+  font-family: Georgia, "Times New Roman", serif;
+  margin: 1.6em 20px;
+  padding: 0.8em 1.2em;
+  border-left: 4px solid #ccc;
+  background: #f9f9f9;
+  color: #555;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.article-entry blockquote p {
+  margin: 0.4em 0;
+}
+
+.article-entry blockquote footer {
+  font-size: 14px;
+  margin-top: 0.8em;
+  color: #888;
+  text-align: right;
+}
+
+.article-entry blockquote footer cite:before {
+  content: "—";
+  padding: 0 0.5em;
+}
