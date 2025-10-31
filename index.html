@@ -71,6 +71,206 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/" class="article-date">
+  <time class="dt-published" datetime="2025-10-31T11:01:10.249Z" itemprop="datePublished">2025-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/">Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>After preliminary discussions with the instructor and defining the research focus, we started the system design.<br>To collect IMU data during swimmers’ training, the device needs to be compact and low-power. Therefore, we abandoned<br>complex Wi-Fi real-time data transmission and instead adopted a method where IMU data are written to an SD card. After<br>the athlete finishes swimming, the SD card can be removed from the device and the data stored on a PC for further analysis.</p>
+<hr>
+<h2 id="1-Project-Overview"><a href="#1-Project-Overview" class="headerlink" title="1. Project Overview"></a><strong>1. Project Overview</strong></h2><h3 id="1-1-Project-Name"><a href="#1-1-Project-Name" class="headerlink" title="1.1 Project Name"></a><strong>1.1 Project Name</strong></h3><p>Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901.</p>
+<h3 id="1-2-Project-Objective"><a href="#1-2-Project-Objective" class="headerlink" title="1.2 Project Objective"></a><strong>1.2 Project Objective</strong></h3><p>To design and implement a low-cost, portable, and high-precision wearable data acquisition system for real-time capture<br>of swimmers’ full-body motion data during training. The system uses an inertial measurement unit to collect raw data,<br>stores it locally on an SD card, and provides data support for subsequent swimming technique analysis, rhythm assessment,<br>and posture optimization.</p>
+<h3 id="1-3-Core-Features"><a href="#1-3-Core-Features" class="headerlink" title="1.3 Core Features"></a><strong>1.3 Core Features</strong></h3><ul>
+<li><strong>9-axis motion data recording</strong>: Records 3-axis acceleration, 3-axis angular velocity, and 3-axis magnetic field data.</li>
+<li><strong>Attitude calculation</strong>: JY901’s built-in algorithm outputs stable roll, pitch, and yaw angles.</li>
+<li><strong>Local data storage</strong>: Saves data files to an SD card to ensure completeness in underwater environments where wireless<br>transmission is impractical.</li>
+<li><strong>Simple and reliable control</strong>: A physical button allows easy start&#x2F;stop control, convenient for swimmers to operate in water.</li>
+</ul>
+<hr>
+<h2 id="2-System-Architecture"><a href="#2-System-Architecture" class="headerlink" title="2. System Architecture"></a><strong>2. System Architecture</strong></h2><p>This system adopts a <strong>distributed acquisition and centralized storage</strong> architecture. Each independent node is a complete data<br>acquisition unit.</p>
+<h3 id="2-1-System-Block-Diagram"><a href="#2-1-System-Block-Diagram" class="headerlink" title="2.1 System Block Diagram"></a><strong>2.1 System Block Diagram</strong></h3><div class="image-container">
+  <img src="/images/image-s1.png">
+</div>
+
+<h3 id="2-2-Data-Flow"><a href="#2-2-Data-Flow" class="headerlink" title="2.2 Data Flow"></a><strong>2.2 Data Flow</strong></h3><ol>
+<li><strong>Data sensing</strong>: The JY901 IMU collects 9-axis data and performs attitude calculation at a preset frequency (e.g., 100Hz).</li>
+<li><strong>Data transmission</strong>: The XIAO board reads data from the JY901 via UART serial interface.</li>
+<li><strong>Data packaging</strong>: XIAO adds timestamps (e.g., via RTC).</li>
+<li><strong>Data storage</strong>: The packaged data are written in binary format to a file on the SD card.</li>
+</ol>
+<hr>
+<h2 id="3-Hardware-Design"><a href="#3-Hardware-Design" class="headerlink" title="3. Hardware Design"></a><strong>3. Hardware Design</strong></h2><h3 id="Bill-of-Materials-BOM"><a href="#Bill-of-Materials-BOM" class="headerlink" title="Bill of Materials (BOM)"></a><strong>Bill of Materials (BOM)</strong></h3><table>
+<thead>
+<tr>
+<th align="left">Category</th>
+<th align="left">Item</th>
+<th align="left">Model &#x2F; Description</th>
+<th align="left">Reference Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Core Controller</strong></td>
+<td align="left">XIAO Development Board</td>
+<td align="left"><strong>XIAO ESP32S3 Kit</strong> (preferred, with wireless)</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=612336208350">Link</a></td>
+</tr>
+<tr>
+<td align="left"><strong>Motion Sensor</strong></td>
+<td align="left">9-axis IMU Module</td>
+<td align="left"><strong>JY901</strong></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=598203013266">Link</a></td>
+</tr>
+<tr>
+<td align="left"><strong>Power</strong></td>
+<td align="left">Lithium Battery</td>
+<td align="left"><strong>3.7V 500mAh</strong> (JST-PH 2.0 connector)</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?id=13835387208">Link</a></td>
+</tr>
+<tr>
+<td align="left"><strong>Connection&#x2F;Structure</strong></td>
+<td align="left">Dupont Wires</td>
+<td align="left">Female-to-Female, 10cm&#x2F;20cm</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=20016243778">Link</a></td>
+</tr>
+<tr>
+<td align="left"><strong>Enclosure</strong></td>
+<td align="left">Waterproof Case</td>
+<td align="left">Custom 3D-printed</td>
+<td align="left">To be customized</td>
+</tr>
+<tr>
+<td align="left"><strong>Mounting</strong></td>
+<td align="left">Waterproof Strap</td>
+<td align="left">Silicone&#x2F;Nylon watch strap (~20mm wide)</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=798298567011">Link</a></td>
+</tr>
+<tr>
+<td align="left"><strong>Consumables</strong></td>
+<td align="left">Micro SD Card</td>
+<td align="left"><strong>16GB&#x2F;32GB, Class 10</strong></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=43096943840">Link</a></td>
+</tr>
+</tbody></table>
+<h3 id="3-1-Core-Controller-Seeed-Studio-XIAO"><a href="#3-1-Core-Controller-Seeed-Studio-XIAO" class="headerlink" title="3.1 Core Controller: Seeed Studio XIAO"></a><strong>3.1 Core Controller: Seeed Studio XIAO</strong></h3><ul>
+<li><strong>Reason for Selection</strong>: Ultra-small, low-power, sufficient performance, supports UART&#x2F;I2C, compatible with SD card module.</li>
+<li><strong>Main Functions</strong>:<ul>
+<li>Communicate with JY901.</li>
+<li>Manage SD card for data writing and file creation.</li>
+<li>Handle button input to control recording.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-Inertial-Measurement-Unit-JY901"><a href="#3-2-Inertial-Measurement-Unit-JY901" class="headerlink" title="3.2 Inertial Measurement Unit: JY901"></a><strong>3.2 Inertial Measurement Unit: JY901</strong></h3><ul>
+<li><strong>Reason for Selection</strong>: Integrated attitude algorithm, plug-and-play, low cost, adequate precision.</li>
+<li><strong>Interface</strong>: <strong>UART serial</strong>, connected to XIAO via RX&#x2F;TX pins.</li>
+<li><strong>Output Data</strong>: Provides acceleration, gyroscope, magnetic field data, and calculated Euler angles.</li>
+</ul>
+<h3 id="3-3-Storage-Module-XIAO-SD-Card-Adapter"><a href="#3-3-Storage-Module-XIAO-SD-Card-Adapter" class="headerlink" title="3.3 Storage Module: XIAO SD Card Adapter"></a><strong>3.3 Storage Module: XIAO SD Card Adapter</strong></h3><ul>
+<li><strong>Reason for Selection</strong>: Plug-and-play design, compatible with XIAO pinout.</li>
+<li><strong>File Format</strong>: Data stored in <code>.csv</code>, easy to process using Excel, Python, or MATLAB.</li>
+<li><strong>Power</strong>: Shares the same lithium battery with XIAO, supporting portable use.</li>
+</ul>
+<h3 id="3-4-Auxiliary-Components"><a href="#3-4-Auxiliary-Components" class="headerlink" title="3.4 Auxiliary Components"></a><strong>3.4 Auxiliary Components</strong></h3><ul>
+<li><strong>Waterproof Enclosure</strong>: 3D-printed case for underwater protection.</li>
+<li><strong>Mounting Strap</strong>: Attaches device securely to body.</li>
+<li><strong>Button</strong>: Start&#x2F;stop recording control.</li>
+</ul>
+<hr>
+<div class="image-container">
+  <img src="/images/image-s2.png">
+</div>
+
+<h2 id="4-Software-Design"><a href="#4-Software-Design" class="headerlink" title="4. Software Design"></a><strong>4. Software Design</strong></h2><h3 id="4-1-Development-Environment"><a href="#4-1-Development-Environment" class="headerlink" title="4.1 Development Environment"></a><strong>4.1 Development Environment</strong></h3><ul>
+<li>Arduino IDE</li>
+</ul>
+<h3 id="4-2-Core-Logic-Pseudocode"><a href="#4-2-Core-Logic-Pseudocode" class="headerlink" title="4.2 Core Logic (Pseudocode)"></a><strong>4.2 Core Logic (Pseudocode)</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SD.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SoftwareSerial.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial<span class="number">1.</span><span class="built_in">begin</span>(<span class="number">9600</span>); <span class="comment">// JY901 UART</span></span><br><span class="line">  <span class="keyword">if</span> (!SD.<span class="built_in">begin</span>(SD_CS_PIN)) &#123; <span class="built_in">error</span>(); &#125;</span><br><span class="line">  String filename = <span class="built_in">generateFilename</span>();</span><br><span class="line">  dataFile = SD.<span class="built_in">open</span>(filename, FILE_WRITE);</span><br><span class="line">  dataFile.<span class="built_in">println</span>(<span class="string">&quot;Time, AccX, AccY, AccZ, GyrX, GyrY, GyrZ, Roll, Pitch, Yaw&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (buttonPressed) &#123;</span><br><span class="line">    isRecording = !isRecording;</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">200</span>); <span class="comment">// debounce</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (isRecording) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">readJY901Data</span>(&amp;imuData)) &#123;</span><br><span class="line">      <span class="type">uint32_t</span> timestamp = <span class="built_in">millis</span>();</span><br><span class="line">      String dataRow = <span class="built_in">String</span>(timestamp) + <span class="string">&quot;, &quot;</span> +</span><br><span class="line">                       <span class="built_in">String</span>(imuData.accX) + <span class="string">&quot;, &quot;</span> + ...;</span><br><span class="line">      dataFile.<span class="built_in">println</span>(dataRow);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-Key-Implementation-Details"><a href="#4-3-Key-Implementation-Details" class="headerlink" title="4.3 Key Implementation Details"></a><strong>4.3 Key Implementation Details</strong></h3><ul>
+<li><strong>Data Parsing</strong>: Extract and decode IMU data frames according to JY901 protocol.</li>
+<li><strong>File Management</strong>: Create new file each power-up to avoid overwriting old data.</li>
+<li><strong>Write Optimization</strong>: Use <code>dataFile.flush()</code> periodically to prevent data loss.</li>
+</ul>
+<hr>
+<h2 id="5-Data-Acquisition-Scheme"><a href="#5-Data-Acquisition-Scheme" class="headerlink" title="5. Data Acquisition Scheme"></a><strong>5. Data Acquisition Scheme</strong></h2><h3 id="5-1-Sensor-Placement"><a href="#5-1-Sensor-Placement" class="headerlink" title="5.1 Sensor Placement"></a><strong>5.1 Sensor Placement</strong></h3><ul>
+<li><strong>Node 1 (Torso)</strong>: On the waist&#x2F;back, for body rotation stability.</li>
+<li><strong>Node 2 (Arm)</strong>: On the forearm&#x2F;wrist, for stroke frequency and path.</li>
+<li><strong>Node 3 (Leg)</strong>: On calf&#x2F;ankle, for kick amplitude and rhythm.</li>
+</ul>
+<h3 id="5-2-Data-Recording-Process"><a href="#5-2-Data-Recording-Process" class="headerlink" title="5.2 Data Recording Process"></a><strong>5.2 Data Recording Process</strong></h3><ol>
+<li>Charge all nodes, clear SD cards, attach devices.</li>
+<li>Start recording simultaneously via button.</li>
+<li>Swim training session, data continuously recorded.</li>
+<li>Stop recording after session.</li>
+<li>Retrieve SD cards and analyze data on PC.</li>
+</ol>
+<hr>
+<h2 id="6-Expected-Results-and-Outputs"><a href="#6-Expected-Results-and-Outputs" class="headerlink" title="6. Expected Results and Outputs"></a><strong>6. Expected Results and Outputs</strong></h2><ul>
+<li><strong>Hardware Outcome</strong>: Fully functional waterproof sensor nodes.</li>
+<li><strong>Data Outcome</strong>: Timestamped multi-dimensional motion datasets (.csv files).</li>
+<li><strong>Analytical Value</strong>:<ul>
+<li><strong>Stroke Rhythm</strong>: Calculate stroke frequency via wrist acceleration periodicity.</li>
+<li><strong>Body Posture</strong>: Assess body roll and stability via torso attitude angles.</li>
+<li><strong>Symmetry</strong>: Compare left&#x2F;right limbs for motion balance.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="7-Future-Work-and-Outlook"><a href="#7-Future-Work-and-Outlook" class="headerlink" title="7. Future Work and Outlook"></a><strong>7. Future Work and Outlook</strong></h2><ul>
+<li><strong>Algorithm Development</strong>: Python scripts for stroke rate, distance, and joint analysis.</li>
+<li><strong>Real-time Feedback</strong>: Add Bluetooth for quick data transfer to mobile app.</li>
+<li><strong>Power Optimization</strong>: Add sleep mode to extend battery life.</li>
+</ul>
+<hr>
+<blockquote>
+<p><strong>💡 Author’s Note</strong></p>
+</blockquote>
+<blockquote>
+<p>This document was drafted with AI assistance. The AI also generated schematic images, while I provided real product photos.<br>The content faithfully reproduces the device’s component selection and hardware design scheme, and partially reconstructs<br>the software design. I also compiled a detailed BOM with purchase links to facilitate DIY replication of this project.</p>
+</blockquote>
+<blockquote>
+<h3 id="IMU-Knowledge-Resources"><a href="#IMU-Knowledge-Resources" class="headerlink" title="IMU Knowledge Resources"></a>IMU Knowledge Resources</h3></blockquote>
+<h4 id="1-A-Complete-Guide-to-Inertial-Measurement-Unit-IMU"><a href="#1-A-Complete-Guide-to-Inertial-Measurement-Unit-IMU" class="headerlink" title="1. A Complete Guide to Inertial Measurement Unit (IMU)"></a>1. <a target="_blank" rel="noopener" href="https://www.jouav.com/blog/inertial-measurement-unit.html">A Complete Guide to Inertial Measurement Unit (IMU)</a></h4><p>Introduces the structure of IMUs (accelerometer, gyroscope, magnetometer), calibration methods, and how to build an IMU-based system.</p>
+<hr>
+<h4 id="2-IMU-Fundamentals-Part-1-Introduction-to-IMUs"><a href="#2-IMU-Fundamentals-Part-1-Introduction-to-IMUs" class="headerlink" title="2. IMU Fundamentals, Part 1: Introduction to IMUs"></a>2. <a target="_blank" rel="noopener" href="https://www.tangramvision.com/blog/learn-imu-fundamentals-part-1-of-5/">IMU Fundamentals, Part 1: Introduction to IMUs</a></h4><p>Explores the principles of 6-degree-of-freedom IMUs (3-axis accelerometer + 3-axis gyroscope), measurement models, and common errors.</p>
+<hr>
+<h4 id="3-Inertial-Measurement-Unit-IMU-–-An-Introduction"><a href="#3-Inertial-Measurement-Unit-IMU-–-An-Introduction" class="headerlink" title="3. Inertial Measurement Unit (IMU) – An Introduction"></a>3. <a target="_blank" rel="noopener" href="https://www.advancednavigation.com/tech-articles/inertial-measurement-unit-imu-an-introduction/">Inertial Measurement Unit (IMU) – An Introduction</a></h4><p>Presents the IMU from an industrial and navigation perspective, discussing MEMS sensor technology, how to interpret specifications, and typical applications.</p>
+<hr>
+<h4 id="4-IMU-Modules-Guide-to-Inertial-Measurement-Units"><a href="#4-IMU-Modules-Guide-to-Inertial-Measurement-Units" class="headerlink" title="4. IMU Modules: Guide to Inertial Measurement Units"></a>4. <a target="_blank" rel="noopener" href="https://www.pnisensor.com/understanding-imu-modules-guide-to-inertial-measurement-units/">IMU Modules: Guide to Inertial Measurement Units</a></h4><p>Focuses on IMU module design, function types, application fields, and future trends — a useful reference for module selection and integration.</p>
+<hr>
+<h4 id="5-Getting-Started-With-Inertial-Measurement-Units-Exploring-Degrees-Of-Freedom"><a href="#5-Getting-Started-With-Inertial-Measurement-Units-Exploring-Degrees-Of-Freedom" class="headerlink" title="5. Getting Started With Inertial Measurement Units | Exploring Degrees Of Freedom"></a>5. <a target="_blank" rel="noopener" href="https://core-electronics.com.au/guides/getting-started-with-inertial-measurement-units-exploring-degrees-of-freedom/">Getting Started With Inertial Measurement Units | Exploring Degrees Of Freedom</a></h4><p>A beginner-friendly guide explaining different IMU types (3DOF, 6DOF, 9DOF), how to choose the right sensor, and how to read and process IMU data.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/" data-id="cuidV0OxJQrH0hhnGENeRfnaY" data-title="Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/" class="article-date">
@@ -219,7 +419,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/" data-id="cuidlpqgJZRfGAuz9hLkQN4W8" data-title="Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/" data-id="cuid_9mR65JoiP4x2Ln4kRzpt" data-title="Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -335,7 +535,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/30/Swimming_Research_Topic_English/" data-id="cuideX6gCo2nvMrFw12jtgkfH" data-title="When Engineering Meets Swimming: Turning Technique into Data" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/10/30/Swimming_Research_Topic_English/" data-id="cuidwz8XxQctr790R8noVGLGJ" data-title="When Engineering Meets Swimming: Turning Technique into Data" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -457,7 +657,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/28/Learning_Python_through_Kaggle_Courses_EN/" data-id="cuidW0-mKiy2Dc7hHlEbqfQJu" data-title="Learning Python through Kaggle Courses" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/10/28/Learning_Python_through_Kaggle_Courses_EN/" data-id="cuidEwCyg3IFcVkk8dTZDkNIW" data-title="Learning Python through Kaggle Courses" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -508,7 +708,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/27/hello-world/" data-id="cuid_EbPP-JdiixqnCR1Iv660" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/10/27/hello-world/" data-id="cuidP4FSeIyPEozeHQ7y1kc-6" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -549,6 +749,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/">Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901</a>
+          </li>
         
           <li>
             <a href="/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/">Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm</a>
