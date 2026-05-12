@@ -1,1055 +1,480 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Kathy Xu Lab</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Kathy Xu Lab">
-<meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Kathy Xu Lab">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Kathy Xu Lab" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FPGA-Based Real-Time Safety Monitoring for Water Sports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    :root {
+      --blue-900: #042C53;
+      --blue-800: #0C447C;
+      --blue-600: #185FA5;
+      --blue-400: #378ADD;
+      --blue-200: #85B7EB;
+      --blue-100: #B5D4F4;
+      --blue-50:  #E6F1FB;
+      --teal-600: #0F6E56;
+      --teal-100: #9FE1CB;
+      --teal-50:  #E1F5EE;
+      --gray-900: #1a1a1a;
+      --gray-700: #3a3a3a;
+      --gray-500: #6b6b6b;
+      --gray-300: #c8c8c8;
+      --gray-100: #f4f4f2;
+      --gray-50:  #fafaf8;
+      --white: #ffffff;
+      --accent: var(--blue-600);
+      --accent-light: var(--blue-50);
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --max-w: 860px;
+      --radius: 8px;
+      --radius-lg: 14px;
+    }
 
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+    html { scroll-behavior: smooth; }
 
-<meta name="generator" content="Hexo 8.1.0"></head>
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--gray-700);
+      background: var(--gray-50);
+    }
 
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, var(--blue-900) 0%, #0d3a6e 60%, var(--teal-600) 100%);
+      color: white;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    .hero-inner { max-width: var(--max-w); margin: 0 auto; }
+
+    .venue-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 400;
+      line-height: 1.25;
+      color: white;
+      margin-bottom: 32px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .authors {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 16px;
+      margin-bottom: 28px;
+    }
+    .authors a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    .authors a:hover { color: var(--teal-100); }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: white;
+      color: var(--blue-900);
+    }
+    .btn-primary:hover { background: var(--blue-50); }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── LAYOUT ── */
+    main { max-width: var(--max-w); margin: 0 auto; padding: 0 24px 80px; }
+
+    section { margin-top: 64px; }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--gray-900);
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--gray-300);
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 14px;
+    }
+
+    p { color: var(--gray-700); margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── TEASER IMAGE ── */
+    .teaser {
+      margin-top: 48px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--gray-300);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .teaser img { width: 100%; display: block; }
+    .teaser figcaption {
+      padding: 12px 18px;
+      background: white;
+      font-size: 13px;
+      color: var(--gray-500);
+      border-top: 1px solid var(--gray-100);
+    }
+
+    /* ── STATS ROW ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .stat-card {
+      background: white;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      padding: 18px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      color: var(--blue-600);
+      display: block;
+      line-height: 1.1;
+    }
+    .stat-card .desc {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-top: 4px;
+    }
+
+    /* ── VIDEO ── */
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-300);
+    }
+    .video-wrap iframe,
+    .video-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      gap: 12px;
+    }
+    .video-placeholder svg { opacity: 0.5; }
+
+    /* ── COMPARISON SLIDER ── */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .comp-item {
+      background: white;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .comp-item img { width: 100%; display: block; }
+    .comp-label {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+    .comp-label span:first-child { color: var(--blue-600); font-weight: 500; }
+    .comp-label span:last-child  { color: var(--teal-600); font-weight: 500; }
+
+    /* ── BIBTEX ── */
+    .bibtex-wrap {
+      position: relative;
+      background: #0f1117;
+      border-radius: var(--radius);
+      padding: 24px;
+      overflow: hidden;
+    }
+    .bibtex-wrap pre {
+      font-family: 'Courier New', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #a8d8a8;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.2); }
+    .copy-btn.copied { color: var(--teal-100); }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 80px;
+      border-top: 1px solid var(--gray-300);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+    footer a { color: var(--blue-600); }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 24px; }
+      .hero { padding: 56px 20px 48px; }
+    }
+  </style>
+</head>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Kathy Xu Lab</a>
-      </h1>
-      
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="venue-badge">IEEE Embedded Systems Letters · 2026</div>
+    <h1>FPGA-Based Real-Time Safety Monitoring System for Water Sports with Diffusion-Based Droplet Removal</h1>
+    <div class="authors">
+      <a href="#">Xue Fan</a>
+      <a href="#">Katherine (Baoting) Xu</a>
+      <a href="#">Wei Jiang</a>
+      <a href="#">Song Zhang</a>
+      <a href="#">Yueyin Bai</a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
+    <div class="links">
+      <a href="https://doi.org/10.1109/LES.2026.3690742" class="btn btn-primary" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Paper (IEEE)
+      </a>
+      <a href="#" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Code
+      </a>
+      <a href="#" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Demo Video
+      </a>
     </div>
   </div>
 </header>
 
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-IMU_Data_Acquisition_and_Storage_Experiment_Seeed_XIAO_JY901_EN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/11/02/IMU_Data_Acquisition_and_Storage_Experiment_Seeed_XIAO_JY901_EN/" class="article-date">
-  <time class="dt-published" datetime="2025-11-02T01:24:32.447Z" itemprop="datePublished">2025-11-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/11/02/IMU_Data_Acquisition_and_Storage_Experiment_Seeed_XIAO_JY901_EN/">IMU Data Acquisition and Storage Experiment Based on Seeed XIAO and JY901</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>This is an experimental report summarizing the software and hardware design and results of the XIAO + JY901 system previously built.</p>
-</blockquote>
-<div class="image-container">
-  <img src="/images/v1.gif">
-  <img src="/images/amonitor.gif">
-</div>
-
-<h3 id="Experiment-Objectives"><a href="#Experiment-Objectives" class="headerlink" title="Experiment Objectives"></a>Experiment Objectives</h3><ol>
-<li>Learn how to connect the Seeed XIAO development board with the JY901 IMU module.  </li>
-<li>Implement real-time IMU data acquisition and waveform visualization.  </li>
-<li>Store collected IMU data to an SD card in real time.  </li>
-<li>Analyze the motion characteristics when the development board is shaken.</li>
-</ol>
-<h3 id="Equipment-Used"><a href="#Equipment-Used" class="headerlink" title="Equipment Used"></a>Equipment Used</h3><ul>
-<li>Seeed XIAO development board ×1  </li>
-<li>Seeed XIAO expansion board (with SD card slot) ×1  </li>
-<li>JY901 IMU module ×1  </li>
-<li>Micro SD card ×1  </li>
-<li>Jumper wires × several  </li>
-<li>USB data cable ×1  </li>
-<li>Computer ×1</li>
-</ul>
-<h3 id="Hardware-Connections"><a href="#Hardware-Connections" class="headerlink" title="Hardware Connections"></a>Hardware Connections</h3><h4 id="Connection-Diagram"><a href="#Connection-Diagram" class="headerlink" title="Connection Diagram"></a>Connection Diagram</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">JY901    →    Seeed XIAO Expansion Board</span><br><span class="line">VCC      →    3.3V</span><br><span class="line">GND      →    GND</span><br><span class="line">RX       →    D6 (TX)</span><br><span class="line">TX       →    D7 (RX)</span><br><span class="line"></span><br><span class="line">SD Card Module → Integrated on the expansion board</span><br></pre></td></tr></table></figure>
-
-<h4 id="Pin-Assignments"><a href="#Pin-Assignments" class="headerlink" title="Pin Assignments"></a>Pin Assignments</h4><ul>
-<li>JY901 Communication: Software Serial D6(RX), D7(TX)  </li>
-<li>SD Card: SPI interface (integrated on the expansion board)</li>
-</ul>
-<h3 id="Experimental-Procedure"><a href="#Experimental-Procedure" class="headerlink" title="Experimental Procedure"></a>Experimental Procedure</h3><ol>
-<li><p><strong>Hardware Preparation</strong></p>
-<ul>
-<li>Insert the SD card into the expansion board slot.  </li>
-<li>Connect the JY901 module according to the wiring diagram.  </li>
-<li>Connect the board to the computer via USB.</li>
-</ul>
-</li>
-<li><p><strong>Software Configuration</strong></p>
-<ul>
-<li>Install required Arduino libraries: <code>SoftwareSerial</code>, <code>SPI</code>, <code>SD</code>.  </li>
-<li>Upload the program to Seeed XIAO.  </li>
-<li>Open the Serial Monitor (115200 baud rate).</li>
-</ul>
-</li>
-<li><p><strong>Data Acquisition</strong></p>
-<ul>
-<li>The system automatically initializes the SD card and creates a data file.  </li>
-<li>Shake or rotate the board manually to collect motion data.  </li>
-<li>Observe real-time waveforms using the Serial Plotter.</li>
-</ul>
-</li>
-<li><p><strong>Data Management</strong></p>
-<ul>
-<li>Type “status” in the serial monitor to view the system status.  </li>
-<li>Type “stop” to stop recording.  </li>
-<li>Remove the SD card and read the stored data file.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Software-Implementation"><a href="#Software-Implementation" class="headerlink" title="Software Implementation"></a>Software Implementation</h3><h4 id="Complete-Arduino-Code"><a href="#Complete-Arduino-Code" class="headerlink" title="Complete Arduino Code"></a>Complete Arduino Code</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;HardwareSerial.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SD.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SPI.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Hardware serial configuration - JY901S TX connected to D7, RX connected to D6</span></span><br><span class="line"><span class="function">HardwareSerial <span class="title">JY901S</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> JY901S_RX D7</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> JY901S_TX D6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// JY901S data frame headers</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ACC_HEADER 0x51    <span class="comment">// Acceleration data frame header</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GYRO_HEADER 0x52   <span class="comment">// Gyroscope data frame header  </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ANGLE_HEADER 0x53  <span class="comment">// Angle data frame header</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FRAME_HEADER 0x55  <span class="comment">// Main frame header</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">JY901S_Config</span> &#123;</span><br><span class="line">  <span class="type">uint8_t</span> unlock[<span class="number">5</span>] = &#123;<span class="number">0XFF</span>, <span class="number">0XAA</span>, <span class="number">0X69</span>, <span class="number">0X88</span>, <span class="number">0XB5</span>&#125;;</span><br><span class="line">  <span class="type">uint8_t</span> setBaud115200[<span class="number">5</span>] = &#123;<span class="number">0xFF</span>, <span class="number">0xAA</span>, <span class="number">0x04</span>, <span class="number">0x06</span>, <span class="number">0x00</span>&#125;;  <span class="comment">// Set baud rate to 115200</span></span><br><span class="line">  <span class="type">uint8_t</span> setRate100Hz[<span class="number">5</span>] = &#123;<span class="number">0xFF</span>, <span class="number">0xAA</span>, <span class="number">0x03</span>, <span class="number">0x09</span>, <span class="number">0x00</span>&#125;;   <span class="comment">// Set output frequency to 100Hz</span></span><br><span class="line">  <span class="type">uint8_t</span> saveConfig[<span class="number">5</span>] = &#123;<span class="number">0xFF</span>, <span class="number">0xAA</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>&#125;;     <span class="comment">// Save configuration</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">JY901S_Config jyConfig;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SD card configuration</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> REASSIGN_PINS</span></span><br><span class="line"><span class="type">int</span> sck = <span class="number">7</span>;</span><br><span class="line"><span class="type">int</span> miso = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> mosi = <span class="number">9</span>;</span><br><span class="line"><span class="type">int</span> cs = <span class="number">21</span>;</span><br><span class="line">File dataFile;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Data storage structure</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">IMUData</span> &#123;</span><br><span class="line">  <span class="type">float</span> accX, accY, accZ;</span><br><span class="line">  <span class="type">float</span> gyroX, gyroY, gyroZ;</span><br><span class="line">  <span class="type">float</span> angleX, angleY, angleZ;</span><br><span class="line">  <span class="type">bool</span> accUpdated = <span class="literal">false</span>;</span><br><span class="line">  <span class="type">bool</span> gyroUpdated = <span class="literal">false</span>;</span><br><span class="line">  <span class="type">bool</span> angleUpdated = <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Data parsing buffer and state variables</span></span><br><span class="line"><span class="type">uint8_t</span> rxBuffer[<span class="number">11</span>];          <span class="comment">// Buffer for one complete data frame (11 bytes)</span></span><br><span class="line"><span class="type">uint8_t</span> bufferIndex = <span class="number">0</span>;       <span class="comment">// Current position in buffer</span></span><br><span class="line"><span class="type">bool</span> headerFound = <span class="literal">false</span>;       <span class="comment">// Flag indicating header byte (0x55) was found</span></span><br><span class="line">IMUData currentData;            <span class="comment">// Current IMU data being assembled</span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">long</span> lastSaveTime = <span class="number">0</span>; <span class="comment">// Timestamp for data saving</span></span><br><span class="line"><span class="type">const</span> <span class="type">unsigned</span> <span class="type">long</span> SAVE_INTERVAL = <span class="number">100</span>; <span class="comment">// Save data every 100ms (10Hz)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Initialize JY901S with default 9600 baud rate</span></span><br><span class="line">  JY901S.<span class="built_in">begin</span>(<span class="number">9600</span>, SERIAL_8N1, JY901S_RX, JY901S_TX);</span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">  Serial.<span class="built_in">println</span>(<span class="string">&quot;Starting JY901S configuration...&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Initialize SD card with reassigned pins</span></span><br><span class="line">  SPI.<span class="built_in">begin</span>(sck, miso, mosi, cs);</span><br><span class="line">  <span class="keyword">if</span> (!SD.<span class="built_in">begin</span>(cs)) &#123;</span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;SD card initialization failed!&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  Serial.<span class="built_in">println</span>(<span class="string">&quot;SD card initialized successfully!&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create data file with header</span></span><br><span class="line">  dataFile = SD.<span class="built_in">open</span>(<span class="string">&quot;/imu_data.csv&quot;</span>, FILE_WRITE);</span><br><span class="line">  <span class="keyword">if</span> (dataFile) &#123;</span><br><span class="line">    dataFile.<span class="built_in">println</span>(<span class="string">&quot;Timestamp(ms),Acceleration X,Acceleration Y,Acceleration Z,Angular Velocity X,Angular Velocity Y,Angular Velocity Z,Angle X,Angle Y,Angle Z&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">close</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Serial.<span class="built_in">println</span>(<span class="string">&quot;System initialization completed, starting data collection...&quot;</span>);</span><br><span class="line">  <span class="built_in">resetIMUData</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Read and process all available serial data</span></span><br><span class="line">  <span class="keyword">while</span> (JY901S.<span class="built_in">available</span>() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">processSerialData</span>(JY901S.<span class="built_in">read</span>());</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Check if we have a complete dataset and it&#x27;s time to save</span></span><br><span class="line">  <span class="keyword">if</span> (currentData.accUpdated &amp;&amp; currentData.gyroUpdated &amp;&amp; currentData.angleUpdated) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">millis</span>() - lastSaveTime &gt;= SAVE_INTERVAL) &#123;</span><br><span class="line">      <span class="built_in">sendToSerialPlotter</span>(currentData);</span><br><span class="line">      <span class="built_in">saveToSDCard</span>(currentData);</span><br><span class="line">      <span class="built_in">resetIMUData</span>();</span><br><span class="line">      lastSaveTime = <span class="built_in">millis</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">processSerialData</span><span class="params">(<span class="type">uint8_t</span> receivedByte)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Look for frame header (0x55)</span></span><br><span class="line">  <span class="keyword">if</span> (!headerFound &amp;&amp; receivedByte == FRAME_HEADER) &#123;</span><br><span class="line">    headerFound = <span class="literal">true</span>;</span><br><span class="line">    bufferIndex = <span class="number">0</span>;</span><br><span class="line">    rxBuffer[bufferIndex++] = receivedByte;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// If header found, collect data bytes</span></span><br><span class="line">  <span class="keyword">if</span> (headerFound &amp;&amp; bufferIndex &lt; <span class="number">11</span>) &#123;</span><br><span class="line">    rxBuffer[bufferIndex++] = receivedByte;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Complete frame received</span></span><br><span class="line">    <span class="keyword">if</span> (bufferIndex == <span class="number">11</span>) &#123;</span><br><span class="line">      <span class="built_in">processDataFrame</span>(rxBuffer);</span><br><span class="line">      headerFound = <span class="literal">false</span>;</span><br><span class="line">      bufferIndex = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// Reset if buffer overflow or invalid state</span></span><br><span class="line">    headerFound = <span class="literal">false</span>;</span><br><span class="line">    bufferIndex = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">processDataFrame</span><span class="params">(<span class="type">uint8_t</span>* buffer)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Check if it&#x27;s a valid frame (starts with 0x55)</span></span><br><span class="line">  <span class="keyword">if</span> (buffer[<span class="number">0</span>] != FRAME_HEADER) <span class="keyword">return</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="type">uint8_t</span> dataType = buffer[<span class="number">1</span>];</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">switch</span> (dataType) &#123;</span><br><span class="line">    <span class="keyword">case</span> ACC_HEADER:</span><br><span class="line">      <span class="comment">// Parse acceleration data (unit: g)</span></span><br><span class="line">      currentData.accX = ((<span class="type">int16_t</span>)(buffer[<span class="number">3</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">2</span>]) / <span class="number">32768.0</span> * <span class="number">16.0</span>;</span><br><span class="line">      currentData.accY = ((<span class="type">int16_t</span>)(buffer[<span class="number">5</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">4</span>]) / <span class="number">32768.0</span> * <span class="number">16.0</span>;</span><br><span class="line">      currentData.accZ = ((<span class="type">int16_t</span>)(buffer[<span class="number">7</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">6</span>]) / <span class="number">32768.0</span> * <span class="number">16.0</span>;</span><br><span class="line">      currentData.accUpdated = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">case</span> GYRO_HEADER:</span><br><span class="line">      <span class="comment">// Parse angular velocity data (unit: °/s)</span></span><br><span class="line">      currentData.gyroX = ((<span class="type">int16_t</span>)(buffer[<span class="number">3</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">2</span>]) / <span class="number">32768.0</span> * <span class="number">2000.0</span>;</span><br><span class="line">      currentData.gyroY = ((<span class="type">int16_t</span>)(buffer[<span class="number">5</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">4</span>]) / <span class="number">32768.0</span> * <span class="number">2000.0</span>;</span><br><span class="line">      currentData.gyroZ = ((<span class="type">int16_t</span>)(buffer[<span class="number">7</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">6</span>]) / <span class="number">32768.0</span> * <span class="number">2000.0</span>;</span><br><span class="line">      currentData.gyroUpdated = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">case</span> ANGLE_HEADER:</span><br><span class="line">      <span class="comment">// Parse angle data (unit: °)</span></span><br><span class="line">      currentData.angleX = ((<span class="type">int16_t</span>)(buffer[<span class="number">3</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">2</span>]) / <span class="number">32768.0</span> * <span class="number">180.0</span>;</span><br><span class="line">      currentData.angleY = ((<span class="type">int16_t</span>)(buffer[<span class="number">5</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">4</span>]) / <span class="number">32768.0</span> * <span class="number">180.0</span>;</span><br><span class="line">      currentData.angleZ = ((<span class="type">int16_t</span>)(buffer[<span class="number">7</span>] &lt;&lt; <span class="number">8</span>) | buffer[<span class="number">6</span>]) / <span class="number">32768.0</span> * <span class="number">180.0</span>;</span><br><span class="line">      currentData.angleUpdated = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">resetIMUData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Reset all data values and update flags</span></span><br><span class="line">  currentData.accX = currentData.accY = currentData.accZ = <span class="number">0</span>;</span><br><span class="line">  currentData.gyroX = currentData.gyroY = currentData.gyroZ = <span class="number">0</span>;</span><br><span class="line">  currentData.angleX = currentData.angleY = currentData.angleZ = <span class="number">0</span>;</span><br><span class="line">  currentData.accUpdated = currentData.gyroUpdated = currentData.angleUpdated = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">sendToSerialPlotter</span><span class="params">(IMUData data)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Format output for serial plotter</span></span><br><span class="line">  Serial.<span class="built_in">print</span>(data.accX);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">print</span>(data.accY);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">print</span>(data.accZ);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">print</span>(data.gyroX);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">print</span>(data.gyroY);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">print</span>(data.gyroZ);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">print</span>(data.angleX);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">print</span>(data.angleY);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">println</span>(data.angleZ);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">saveToSDCard</span><span class="params">(IMUData data)</span> </span>&#123;</span><br><span class="line">  dataFile = SD.<span class="built_in">open</span>(<span class="string">&quot;/imu_data.csv&quot;</span>, FILE_APPEND);</span><br><span class="line">  <span class="keyword">if</span> (dataFile) &#123;</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="built_in">millis</span>());</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(data.accX, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(data.accY, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(data.accZ, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(data.gyroX, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(data.gyroY, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(data.gyroZ, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(data.angleX, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(data.angleY, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    dataFile.<span class="built_in">println</span>(data.angleZ, <span class="number">4</span>);</span><br><span class="line">    dataFile.<span class="built_in">close</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">sendCommand</span><span class="params">(<span class="type">uint8_t</span> command[<span class="number">5</span>])</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    JY901S.<span class="built_in">write</span>(command[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  JY901S.<span class="built_in">flush</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Data-Processing-and-Analysis-Python"><a href="#Data-Processing-and-Analysis-Python" class="headerlink" title="Data Processing and Analysis (Python)"></a>Data Processing and Analysis (Python)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set matplotlib style for better visualization</span></span><br><span class="line">plt.style.use(<span class="string">&#x27;default&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;All required packages imported successfully!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<pre><code>All required packages imported successfully!
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Read the CSV file generated by Arduino</span></span><br><span class="line">file_path = <span class="string">&quot;./imu_data.csv&quot;</span>  <span class="comment"># Update path if necessary</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># Read CSV file, skip the header row</span></span><br><span class="line">    df = pd.read_csv(file_path)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Display basic information about the dataset</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Data shape:&quot;</span>, df.shape)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nFirst 10 rows of data:&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(df.head(<span class="number">10</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Display column names and data types</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nColumn information:&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(df.dtypes)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Basic statistics</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nBasic statistics:&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(df.describe())</span><br><span class="line">    </span><br><span class="line"><span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Error: File &#x27;<span class="subst">&#123;file_path&#125;</span>&#x27; not found. Please check the file path.&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Error reading file: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<pre><code>Data shape: (841, 10)
-
-First 10 rows of data:
-   Timestamp(ms)  Acceleration X  Acceleration Y  Acceleration Z  \
-0            476          0.1538          0.9551         -0.2822   
-1            603          0.5264          1.1152         -0.2114   
-2            730          0.3091          0.9834         -0.1431   
-3            858          0.4302          0.8569         -0.1968   
-4            985          0.4756          0.9351         -0.1763   
-5           1114          0.4077          0.8755         -0.2256   
-6           1240          0.4316          0.8716         -0.1777   
-7           1366          0.4224          0.8433         -0.2407   
-8           1492          0.3579          0.7261         -0.2759   
-9           1618          0.4282          0.9150         -0.3682   
-
-   Angular Velocity X  Angular Velocity Y  Angular Velocity Z   Angle X  \
-0            -10.1318              7.1411            -20.2026  102.5464   
-1              4.2725             64.5142              7.8125  101.4697   
-2              2.6245             -6.2256             83.6182  101.8817   
-3             24.5361            -26.6113             87.6465  103.1946   
-4            -13.1836              0.0000              0.7935  102.7496   
-5              0.6104              3.7842             19.1040  101.1676   
-6              0.9155              0.5493              7.4463  101.8542   
-7             14.3433            -23.1323            -14.0991  104.5294   
-8             30.4565            -27.0996            -11.2915  110.9454   
-9            -11.5356            -37.6587              6.9580  111.8958   
-
-   Angle Y   Angle Z  
-0 -11.3049  147.7551  
-1  -7.3389  151.9958  
-2 -11.5576  150.0842  
-3 -18.9240  146.6510  
-4 -21.5057  144.7339  
-5 -23.1097  142.4762  
-6 -24.9225  141.2347  
-7 -25.0818  138.5870  
-8 -23.2251  132.8302  
-9 -22.6648  130.0616  
-
-Column information:
-Timestamp(ms)           int64
-Acceleration X        float64
-Acceleration Y        float64
-Acceleration Z        float64
-Angular Velocity X    float64
-Angular Velocity Y    float64
-Angular Velocity Z    float64
-Angle X               float64
-Angle Y               float64
-Angle Z               float64
-dtype: object
-
-Basic statistics:
-       Timestamp(ms)  Acceleration X  Acceleration Y  Acceleration Z  \
-count      841.00000      841.000000      841.000000      841.000000   
-mean     55033.87396        0.097764        0.408160       -0.364039   
-std      32285.95869        0.589507        0.498178        0.355474   
-min        476.00000       -1.289100       -1.012700       -1.020500   
-25%      27114.00000       -0.353000        0.042000       -0.626500   
-50%      53896.00000        0.146500        0.580600       -0.361800   
-75%      82965.00000        0.606900        0.790000       -0.137200   
-max     112018.00000        1.147500        2.124000        0.633800   
-
-       Angular Velocity X  Angular Velocity Y  Angular Velocity Z     Angle X  \
-count          841.000000          841.000000          841.000000  841.000000   
-mean             5.732660           -2.549615            4.208667   66.247018   
-std             48.449821           52.569332           34.012202  112.036781   
-min           -290.466300         -282.714800         -248.107900 -179.846200   
-25%             -4.882800          -25.756800           -6.652800   71.680300   
-50%              2.868700           -2.563500            2.441400  111.577100   
-75%             14.038100           20.996100           15.869100  135.966800   
-max            336.181600          262.878400          246.887200  179.983500   
-
-          Angle Y     Angle Z  
-count  841.000000  841.000000  
-mean    -7.925701   84.417070  
-std     38.868498   69.639139  
-min    -88.857400 -179.818700  
-25%    -36.628400   63.352700  
-50%     -9.025300  102.486000  
-75%     17.347400  124.727800  
-max     83.139000  179.500100  
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create time axis based on 10Hz sampling rate</span></span><br><span class="line">sampling_rate = <span class="number">10</span>  <span class="comment"># Hz</span></span><br><span class="line">time_interval = <span class="number">1.0</span> / sampling_rate  <span class="comment"># Time between samples in seconds</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use timestamp column if available, otherwise create time axis</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;Timestamp(ms)&#x27;</span> <span class="keyword">in</span> df.columns:</span><br><span class="line">    time_seconds = df[<span class="string">&#x27;Timestamp(ms)&#x27;</span>] / <span class="number">1000.0</span>  <span class="comment"># Convert ms to seconds</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># Create time axis based on sampling rate</span></span><br><span class="line">    time_seconds = np.arange(<span class="built_in">len</span>(df)) * time_interval</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create subplots with 3 rows for different sensor data</span></span><br><span class="line">fig, axes = plt.subplots(<span class="number">3</span>, <span class="number">1</span>, figsize=(<span class="number">14</span>, <span class="number">12</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot 1: Acceleration Data</span></span><br><span class="line">axes[<span class="number">0</span>].plot(time_seconds, df[<span class="string">&#x27;Acceleration X&#x27;</span>], label=<span class="string">&#x27;Acceleration X&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line">axes[<span class="number">0</span>].plot(time_seconds, df[<span class="string">&#x27;Acceleration Y&#x27;</span>], label=<span class="string">&#x27;Acceleration Y&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">axes[<span class="number">0</span>].plot(time_seconds, df[<span class="string">&#x27;Acceleration Z&#x27;</span>], label=<span class="string">&#x27;Acceleration Z&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Acceleration (g)&#x27;</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&#x27;IMU Acceleration Data (X, Y, Z axes) - 10Hz Sampling Rate&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="string">&#x27;upper right&#x27;</span>)</span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, alpha=<span class="number">0.3</span>)</span><br><span class="line">axes[<span class="number">0</span>].tick_params(axis=<span class="string">&#x27;both&#x27;</span>, which=<span class="string">&#x27;major&#x27;</span>, labelsize=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot 2: Gyroscope Data</span></span><br><span class="line">axes[<span class="number">1</span>].plot(time_seconds, df[<span class="string">&#x27;Angular Velocity X&#x27;</span>], label=<span class="string">&#x27;Gyro X&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(time_seconds, df[<span class="string">&#x27;Angular Velocity Y&#x27;</span>], label=<span class="string">&#x27;Gyro Y&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(time_seconds, df[<span class="string">&#x27;Angular Velocity Z&#x27;</span>], label=<span class="string">&#x27;Gyro Z&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Angular Velocity (°/s)&#x27;</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&#x27;IMU Gyroscope Data (X, Y, Z axes)&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="string">&#x27;upper right&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, alpha=<span class="number">0.3</span>)</span><br><span class="line">axes[<span class="number">1</span>].tick_params(axis=<span class="string">&#x27;both&#x27;</span>, which=<span class="string">&#x27;major&#x27;</span>, labelsize=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot 3: Angle Data</span></span><br><span class="line">axes[<span class="number">2</span>].plot(time_seconds, df[<span class="string">&#x27;Angle X&#x27;</span>], label=<span class="string">&#x27;Angle X&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line">axes[<span class="number">2</span>].plot(time_seconds, df[<span class="string">&#x27;Angle Y&#x27;</span>], label=<span class="string">&#x27;Angle Y&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">axes[<span class="number">2</span>].plot(time_seconds, df[<span class="string">&#x27;Angle Z&#x27;</span>], label=<span class="string">&#x27;Angle Z&#x27;</span>, </span><br><span class="line">             linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.8</span>, color=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line">axes[<span class="number">2</span>].set_xlabel(<span class="string">&#x27;Time (seconds)&#x27;</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">axes[<span class="number">2</span>].set_ylabel(<span class="string">&#x27;Angle (°)&#x27;</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">axes[<span class="number">2</span>].set_title(<span class="string">&#x27;IMU Angle Data (X, Y, Z axes)&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">axes[<span class="number">2</span>].legend(loc=<span class="string">&#x27;upper right&#x27;</span>)</span><br><span class="line">axes[<span class="number">2</span>].grid(<span class="literal">True</span>, alpha=<span class="number">0.3</span>)</span><br><span class="line">axes[<span class="number">2</span>].tick_params(axis=<span class="string">&#x27;both&#x27;</span>, which=<span class="string">&#x27;major&#x27;</span>, labelsize=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Adjust layout and display plots</span></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display recording information</span></span><br><span class="line">total_time = time_seconds.iloc[-<span class="number">1</span>] <span class="keyword">if</span> <span class="built_in">hasattr</span>(time_seconds, <span class="string">&#x27;iloc&#x27;</span>) <span class="keyword">else</span> time_seconds[-<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Recording Summary:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Total recording time: <span class="subst">&#123;total_time:<span class="number">.2</span>f&#125;</span> seconds&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Number of data points: <span class="subst">&#123;<span class="built_in">len</span>(df)&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Sampling rate: <span class="subst">&#123;sampling_rate&#125;</span> Hz&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Data columns available: <span class="subst">&#123;<span class="built_in">list</span>(df.columns)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-
-<div class="image-container">
-  <img src="/images/output_2_0.png">
-</div>   
-    
-
-
-<pre><code>Recording Summary:
-Total recording time: 112.02 seconds
-Number of data points: 841
-Sampling rate: 10 Hz
-Data columns available: [&#39;Timestamp(ms)&#39;, &#39;Acceleration X&#39;, &#39;Acceleration Y&#39;, &#39;Acceleration Z&#39;, &#39;Angular Velocity X&#39;, &#39;Angular Velocity Y&#39;, &#39;Angular Velocity Z&#39;, &#39;Angle X&#39;, &#39;Angle Y&#39;, &#39;Angle Z&#39;]
-</code></pre>
-<h3 id="Experimental-Results-and-Analysis"><a href="#Experimental-Results-and-Analysis" class="headerlink" title="Experimental Results and Analysis"></a>Experimental Results and Analysis</h3><h4 id="Real-Time-Waveform-Observation"><a href="#Real-Time-Waveform-Observation" class="headerlink" title="Real-Time Waveform Observation"></a>Real-Time Waveform Observation</h4><p>Through the Serial Plotter, we can observe:</p>
-<ul>
-<li><strong>Acceleration waveform</strong>: reflects linear motion variations.  </li>
-<li><strong>Angular velocity waveform</strong>: reflects rotational motion characteristics.  </li>
-<li><strong>Angle waveform</strong>: reflects attitude and orientation changes.</li>
-</ul>
-<h4 id="Data-File-Content"><a href="#Data-File-Content" class="headerlink" title="Data File Content"></a>Data File Content</h4><p>Example CSV file saved on SD card:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Timestamp(ms),Acceleration X,Acceleration Y,Acceleration Z,Angular Velocity X,Angular Velocity Y,Angular Velocity Z,Angle X,Angle Y,Angle Z</span><br><span class="line">476,0.1538,0.9551,-0.2822,-10.1318,7.1411,-20.2026,102.5464,-11.3049,147.7551</span><br><span class="line">603,0.5264,1.1152,-0.2114,4.2725,64.5142,7.8125,101.4697,-7.3389,151.9958</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h4 id="Performance-Indicators"><a href="#Performance-Indicators" class="headerlink" title="Performance Indicators"></a>Performance Indicators</h4><ul>
-<li>Sampling frequency: approximately 50–100 Hz (depending on processing speed).  </li>
-<li>Data precision: acceleration 0.001 g, angular velocity 0.1 °&#x2F;s, angle 0.1 °.  </li>
-<li>Storage format: standard CSV, compatible with Excel, Python, etc.</li>
-</ul>
-<h3 id="Experiment-Summary"><a href="#Experiment-Summary" class="headerlink" title="Experiment Summary"></a>Experiment Summary</h3><p>This experiment successfully achieved:</p>
-<ol>
-<li>Stable communication between Seeed XIAO and JY901 IMU.  </li>
-<li>Real-time waveform visualization.  </li>
-<li>Automatic data logging to SD card.  </li>
-<li>A complete IMU data acquisition and analysis workflow.</li>
-</ol>
-<p>This system can be applied to motion analysis, posture recognition, and vibration monitoring, providing a reliable data acquisition platform for future research in inertial navigation and motion control.</p>
-<h3 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h3><ol>
-<li>The SD card must be formatted to FAT32 before use.  </li>
-<li>Ensure stable power supply to prevent data loss.</li>
-</ol>
-<blockquote>
-<p>The framework of this report was generated by AI under my guidance. I added the code, experimental results, and refined several technical details.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/11/02/IMU_Data_Acquisition_and_Storage_Experiment_Seeed_XIAO_JY901_EN/" data-id="cuidvYvWz5J_E_hnTyFZx8Xwp" data-title="IMU Data Acquisition and Storage Experiment Based on Seeed XIAO and JY901" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/" class="article-date">
-  <time class="dt-published" datetime="2025-10-31T11:01:10.249Z" itemprop="datePublished">2025-10-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/">Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>After preliminary discussions with the instructor and defining the research focus, we started the system design.<br>To collect IMU data during swimmers’ training, the device needs to be compact and low-power. Therefore, we abandoned<br>complex Wi-Fi real-time data transmission and instead adopted a method where IMU data are written to an SD card. After<br>the athlete finishes swimming, the SD card can be removed from the device and the data stored on a PC for further analysis.</p>
-</blockquote>
-<hr>
-<h2 id="1-Project-Overview"><a href="#1-Project-Overview" class="headerlink" title="1. Project Overview"></a><strong>1. Project Overview</strong></h2><h3 id="1-1-Project-Name"><a href="#1-1-Project-Name" class="headerlink" title="1.1 Project Name"></a><strong>1.1 Project Name</strong></h3><p>Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901.</p>
-<h3 id="1-2-Project-Objective"><a href="#1-2-Project-Objective" class="headerlink" title="1.2 Project Objective"></a><strong>1.2 Project Objective</strong></h3><p>To design and implement a low-cost, portable, and high-precision wearable data acquisition system for real-time capture<br>of swimmers’ full-body motion data during training. The system uses an inertial measurement unit to collect raw data,<br>stores it locally on an SD card, and provides data support for subsequent swimming technique analysis, rhythm assessment,<br>and posture optimization.</p>
-<h3 id="1-3-Core-Features"><a href="#1-3-Core-Features" class="headerlink" title="1.3 Core Features"></a><strong>1.3 Core Features</strong></h3><ul>
-<li><strong>9-axis motion data recording</strong>: Records 3-axis acceleration, 3-axis angular velocity, and 3-axis magnetic field data.</li>
-<li><strong>Attitude calculation</strong>: JY901’s built-in algorithm outputs stable roll, pitch, and yaw angles.</li>
-<li><strong>Local data storage</strong>: Saves data files to an SD card to ensure completeness in underwater environments where wireless<br>transmission is impractical.</li>
-<li><strong>Simple and reliable control</strong>: A physical button allows easy start&#x2F;stop control, convenient for swimmers to operate in water.</li>
-</ul>
-<hr>
-<h2 id="2-System-Architecture"><a href="#2-System-Architecture" class="headerlink" title="2. System Architecture"></a><strong>2. System Architecture</strong></h2><p>This system adopts a <strong>distributed acquisition and centralized storage</strong> architecture. Each independent node is a complete data<br>acquisition unit.</p>
-<h3 id="2-1-System-Block-Diagram"><a href="#2-1-System-Block-Diagram" class="headerlink" title="2.1 System Block Diagram"></a><strong>2.1 System Block Diagram</strong></h3><div class="image-container">
-  <img src="/images/image-s2.png">
-</div>
-
-<h3 id="2-2-Data-Flow"><a href="#2-2-Data-Flow" class="headerlink" title="2.2 Data Flow"></a><strong>2.2 Data Flow</strong></h3><ol>
-<li><strong>Data sensing</strong>: The JY901 IMU collects 9-axis data and performs attitude calculation at a preset frequency (e.g., 100Hz).</li>
-<li><strong>Data transmission</strong>: The XIAO board reads data from the JY901 via UART serial interface.</li>
-<li><strong>Data packaging</strong>: XIAO adds timestamps (e.g., via RTC).</li>
-<li><strong>Data storage</strong>: The packaged data are written in binary format to a file on the SD card.</li>
-</ol>
-<hr>
-<h2 id="3-Hardware-Design"><a href="#3-Hardware-Design" class="headerlink" title="3. Hardware Design"></a><strong>3. Hardware Design</strong></h2><h3 id="Bill-of-Materials-BOM"><a href="#Bill-of-Materials-BOM" class="headerlink" title="Bill of Materials (BOM)"></a><strong>Bill of Materials (BOM)</strong></h3><table>
-<thead>
-<tr>
-<th align="left">Category</th>
-<th align="left">Item</th>
-<th align="left">Model &#x2F; Description</th>
-<th align="left">Reference Link</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>Core Controller</strong></td>
-<td align="left">XIAO Development Board</td>
-<td align="left"><strong>XIAO ESP32S3 Kit</strong> (preferred, with wireless)</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=612336208350">Link</a></td>
-</tr>
-<tr>
-<td align="left"><strong>Motion Sensor</strong></td>
-<td align="left">9-axis IMU Module</td>
-<td align="left"><strong>JY901</strong></td>
-<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=598203013266">Link</a></td>
-</tr>
-<tr>
-<td align="left"><strong>Power</strong></td>
-<td align="left">Lithium Battery</td>
-<td align="left"><strong>3.7V 500mAh</strong> (JST-PH 2.0 connector)</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?id=13835387208">Link</a></td>
-</tr>
-<tr>
-<td align="left"><strong>Connection&#x2F;Structure</strong></td>
-<td align="left">Dupont Wires</td>
-<td align="left">Female-to-Female, 10cm&#x2F;20cm</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=20016243778">Link</a></td>
-</tr>
-<tr>
-<td align="left"><strong>Enclosure</strong></td>
-<td align="left">Waterproof Case</td>
-<td align="left">Custom 3D-printed</td>
-<td align="left">To be customized</td>
-</tr>
-<tr>
-<td align="left"><strong>Mounting</strong></td>
-<td align="left">Waterproof Strap</td>
-<td align="left">Silicone&#x2F;Nylon watch strap (~20mm wide)</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=798298567011">Link</a></td>
-</tr>
-<tr>
-<td align="left"><strong>Consumables</strong></td>
-<td align="left">Micro SD Card</td>
-<td align="left"><strong>16GB&#x2F;32GB, Class 10</strong></td>
-<td align="left"><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?id=43096943840">Link</a></td>
-</tr>
-</tbody></table>
-<h3 id="3-1-Core-Controller-Seeed-Studio-XIAO"><a href="#3-1-Core-Controller-Seeed-Studio-XIAO" class="headerlink" title="3.1 Core Controller: Seeed Studio XIAO"></a><strong>3.1 Core Controller: Seeed Studio XIAO</strong></h3><ul>
-<li><strong>Reason for Selection</strong>: Ultra-small, low-power, sufficient performance, supports UART&#x2F;I2C, compatible with SD card module.</li>
-<li><strong>Main Functions</strong>:<ul>
-<li>Communicate with JY901.</li>
-<li>Manage SD card for data writing and file creation.</li>
-<li>Handle button input to control recording.</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-2-Inertial-Measurement-Unit-JY901"><a href="#3-2-Inertial-Measurement-Unit-JY901" class="headerlink" title="3.2 Inertial Measurement Unit: JY901"></a><strong>3.2 Inertial Measurement Unit: JY901</strong></h3><ul>
-<li><strong>Reason for Selection</strong>: Integrated attitude algorithm, plug-and-play, low cost, adequate precision.</li>
-<li><strong>Interface</strong>: <strong>UART serial</strong>, connected to XIAO via RX&#x2F;TX pins.</li>
-<li><strong>Output Data</strong>: Provides acceleration, gyroscope, magnetic field data, and calculated Euler angles.</li>
-</ul>
-<h3 id="3-3-Storage-Module-XIAO-SD-Card-Adapter"><a href="#3-3-Storage-Module-XIAO-SD-Card-Adapter" class="headerlink" title="3.3 Storage Module: XIAO SD Card Adapter"></a><strong>3.3 Storage Module: XIAO SD Card Adapter</strong></h3><ul>
-<li><strong>Reason for Selection</strong>: Plug-and-play design, compatible with XIAO pinout.</li>
-<li><strong>File Format</strong>: Data stored in <code>.csv</code>, easy to process using Excel, Python, or MATLAB.</li>
-<li><strong>Power</strong>: Shares the same lithium battery with XIAO, supporting portable use.</li>
-</ul>
-<h3 id="3-4-Auxiliary-Components"><a href="#3-4-Auxiliary-Components" class="headerlink" title="3.4 Auxiliary Components"></a><strong>3.4 Auxiliary Components</strong></h3><ul>
-<li><strong>Waterproof Enclosure</strong>: 3D-printed case for underwater protection.</li>
-<li><strong>Mounting Strap</strong>: Attaches device securely to body.</li>
-<li><strong>Button</strong>: Start&#x2F;stop recording control.</li>
-</ul>
-<hr>
-<div class="image-container">
-  <img src="/images/image-s1.png">
-</div>
-
-<h2 id="4-Software-Design"><a href="#4-Software-Design" class="headerlink" title="4. Software Design"></a><strong>4. Software Design</strong></h2><h3 id="4-1-Development-Environment"><a href="#4-1-Development-Environment" class="headerlink" title="4.1 Development Environment"></a><strong>4.1 Development Environment</strong></h3><ul>
-<li>Arduino IDE</li>
-</ul>
-<h3 id="4-2-Core-Logic-Pseudocode"><a href="#4-2-Core-Logic-Pseudocode" class="headerlink" title="4.2 Core Logic (Pseudocode)"></a><strong>4.2 Core Logic (Pseudocode)</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SD.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SoftwareSerial.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial<span class="number">1.</span><span class="built_in">begin</span>(<span class="number">9600</span>); <span class="comment">// JY901 UART</span></span><br><span class="line">  <span class="keyword">if</span> (!SD.<span class="built_in">begin</span>(SD_CS_PIN)) &#123; <span class="built_in">error</span>(); &#125;</span><br><span class="line">  String filename = <span class="built_in">generateFilename</span>();</span><br><span class="line">  dataFile = SD.<span class="built_in">open</span>(filename, FILE_WRITE);</span><br><span class="line">  dataFile.<span class="built_in">println</span>(<span class="string">&quot;Time, AccX, AccY, AccZ, GyrX, GyrY, GyrZ, Roll, Pitch, Yaw&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (buttonPressed) &#123;</span><br><span class="line">    isRecording = !isRecording;</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">200</span>); <span class="comment">// debounce</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (isRecording) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">readJY901Data</span>(&amp;imuData)) &#123;</span><br><span class="line">      <span class="type">uint32_t</span> timestamp = <span class="built_in">millis</span>();</span><br><span class="line">      String dataRow = <span class="built_in">String</span>(timestamp) + <span class="string">&quot;, &quot;</span> +</span><br><span class="line">                       <span class="built_in">String</span>(imuData.accX) + <span class="string">&quot;, &quot;</span> + ...;</span><br><span class="line">      dataFile.<span class="built_in">println</span>(dataRow);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-3-Key-Implementation-Details"><a href="#4-3-Key-Implementation-Details" class="headerlink" title="4.3 Key Implementation Details"></a><strong>4.3 Key Implementation Details</strong></h3><ul>
-<li><strong>Data Parsing</strong>: Extract and decode IMU data frames according to JY901 protocol.</li>
-<li><strong>File Management</strong>: Create new file each power-up to avoid overwriting old data.</li>
-<li><strong>Write Optimization</strong>: Use <code>dataFile.flush()</code> periodically to prevent data loss.</li>
-</ul>
-<hr>
-<h2 id="5-Data-Acquisition-Scheme"><a href="#5-Data-Acquisition-Scheme" class="headerlink" title="5. Data Acquisition Scheme"></a><strong>5. Data Acquisition Scheme</strong></h2><h3 id="5-1-Sensor-Placement"><a href="#5-1-Sensor-Placement" class="headerlink" title="5.1 Sensor Placement"></a><strong>5.1 Sensor Placement</strong></h3><ul>
-<li><strong>Node 1 (Torso)</strong>: On the waist&#x2F;back, for body rotation stability.</li>
-<li><strong>Node 2 (Arm)</strong>: On the forearm&#x2F;wrist, for stroke frequency and path.</li>
-<li><strong>Node 3 (Leg)</strong>: On calf&#x2F;ankle, for kick amplitude and rhythm.</li>
-</ul>
-<h3 id="5-2-Data-Recording-Process"><a href="#5-2-Data-Recording-Process" class="headerlink" title="5.2 Data Recording Process"></a><strong>5.2 Data Recording Process</strong></h3><ol>
-<li>Charge all nodes, clear SD cards, attach devices.</li>
-<li>Start recording simultaneously via button.</li>
-<li>Swim training session, data continuously recorded.</li>
-<li>Stop recording after session.</li>
-<li>Retrieve SD cards and analyze data on PC.</li>
-</ol>
-<hr>
-<h2 id="6-Expected-Results-and-Outputs"><a href="#6-Expected-Results-and-Outputs" class="headerlink" title="6. Expected Results and Outputs"></a><strong>6. Expected Results and Outputs</strong></h2><ul>
-<li><strong>Hardware Outcome</strong>: Fully functional waterproof sensor nodes.</li>
-<li><strong>Data Outcome</strong>: Timestamped multi-dimensional motion datasets (.csv files).</li>
-<li><strong>Analytical Value</strong>:<ul>
-<li><strong>Stroke Rhythm</strong>: Calculate stroke frequency via wrist acceleration periodicity.</li>
-<li><strong>Body Posture</strong>: Assess body roll and stability via torso attitude angles.</li>
-<li><strong>Symmetry</strong>: Compare left&#x2F;right limbs for motion balance.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="7-Future-Work-and-Outlook"><a href="#7-Future-Work-and-Outlook" class="headerlink" title="7. Future Work and Outlook"></a><strong>7. Future Work and Outlook</strong></h2><ul>
-<li><strong>Algorithm Development</strong>: Python scripts for stroke rate, distance, and joint analysis.</li>
-<li><strong>Real-time Feedback</strong>: Add Bluetooth for quick data transfer to mobile app.</li>
-<li><strong>Power Optimization</strong>: Add sleep mode to extend battery life.</li>
-</ul>
-<hr>
-<blockquote>
-<p><strong>💡 Author’s Note</strong></p>
-</blockquote>
-<blockquote>
-<p>This document was drafted with AI assistance. The AI also generated schematic images, while I provided real product photos.<br>The content faithfully reproduces the device’s component selection and hardware design scheme, and partially reconstructs<br>the software design. I also compiled a detailed BOM with purchase links to facilitate DIY replication of this project.</p>
-</blockquote>
-<blockquote>
-<h3 id="IMU-Knowledge-Resources"><a href="#IMU-Knowledge-Resources" class="headerlink" title="IMU Knowledge Resources"></a>IMU Knowledge Resources</h3></blockquote>
-<h4 id="1-A-Complete-Guide-to-Inertial-Measurement-Unit-IMU"><a href="#1-A-Complete-Guide-to-Inertial-Measurement-Unit-IMU" class="headerlink" title="1. A Complete Guide to Inertial Measurement Unit (IMU)"></a>1. <a target="_blank" rel="noopener" href="https://www.jouav.com/blog/inertial-measurement-unit.html">A Complete Guide to Inertial Measurement Unit (IMU)</a></h4><p>Introduces the structure of IMUs (accelerometer, gyroscope, magnetometer), calibration methods, and how to build an IMU-based system.</p>
-<hr>
-<h4 id="2-IMU-Fundamentals-Part-1-Introduction-to-IMUs"><a href="#2-IMU-Fundamentals-Part-1-Introduction-to-IMUs" class="headerlink" title="2. IMU Fundamentals, Part 1: Introduction to IMUs"></a>2. <a target="_blank" rel="noopener" href="https://www.tangramvision.com/blog/learn-imu-fundamentals-part-1-of-5/">IMU Fundamentals, Part 1: Introduction to IMUs</a></h4><p>Explores the principles of 6-degree-of-freedom IMUs (3-axis accelerometer + 3-axis gyroscope), measurement models, and common errors.</p>
-<hr>
-<h4 id="3-Inertial-Measurement-Unit-IMU-–-An-Introduction"><a href="#3-Inertial-Measurement-Unit-IMU-–-An-Introduction" class="headerlink" title="3. Inertial Measurement Unit (IMU) – An Introduction"></a>3. <a target="_blank" rel="noopener" href="https://www.advancednavigation.com/tech-articles/inertial-measurement-unit-imu-an-introduction/">Inertial Measurement Unit (IMU) – An Introduction</a></h4><p>Presents the IMU from an industrial and navigation perspective, discussing MEMS sensor technology, how to interpret specifications, and typical applications.</p>
-<hr>
-<h4 id="4-IMU-Modules-Guide-to-Inertial-Measurement-Units"><a href="#4-IMU-Modules-Guide-to-Inertial-Measurement-Units" class="headerlink" title="4. IMU Modules: Guide to Inertial Measurement Units"></a>4. <a target="_blank" rel="noopener" href="https://www.pnisensor.com/understanding-imu-modules-guide-to-inertial-measurement-units/">IMU Modules: Guide to Inertial Measurement Units</a></h4><p>Focuses on IMU module design, function types, application fields, and future trends — a useful reference for module selection and integration.</p>
-<hr>
-<h4 id="5-Getting-Started-With-Inertial-Measurement-Units-Exploring-Degrees-Of-Freedom"><a href="#5-Getting-Started-With-Inertial-Measurement-Units-Exploring-Degrees-Of-Freedom" class="headerlink" title="5. Getting Started With Inertial Measurement Units | Exploring Degrees Of Freedom"></a>5. <a target="_blank" rel="noopener" href="https://core-electronics.com.au/guides/getting-started-with-inertial-measurement-units-exploring-degrees-of-freedom/">Getting Started With Inertial Measurement Units | Exploring Degrees Of Freedom</a></h4><p>A beginner-friendly guide explaining different IMU types (3DOF, 6DOF, 9DOF), how to choose the right sensor, and how to read and process IMU data.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/" data-id="cuidE_Da0--XZS4QomBX-cCRC" data-title="Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/" class="article-date">
-  <time class="dt-published" datetime="2025-10-31T10:46:54.683Z" itemprop="datePublished">2025-10-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/">Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>After deciding to study the <strong>rhythm and timing of swimming</strong>, I needed to understand how to measure and record these movements happening in the pool, and how to analyze them.<br>My advisor suggested two possible methods: <strong>video analysis</strong> and <strong>IMU-based motion data acquisition</strong>.<br>After our discussion, I realized that while video analysis is intuitive, it requires complex technical processing. In contrast, IMU data cannot reconstruct motion visually, but it is easier to collect and analyze.<br>Therefore, I decided to use IMUs to collect swimming motion data.<br>This project began a year ago, and I am now organizing my research experience. Over the past year, AI technology has advanced rapidly—many analyses that once took a long time can now be efficiently generated with AI assistance.<br>Below is the AI-assisted summary of my work, which my advisor and I titled:</p>
-</blockquote>
-<h2 id="Design-Concept-of-a-Wearable-IMU-Based-System-for-Real-Time-Feedback-on-Swimming-Rhythm"><a href="#Design-Concept-of-a-Wearable-IMU-Based-System-for-Real-Time-Feedback-on-Swimming-Rhythm" class="headerlink" title="Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm"></a>Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm</h2><div class="image-container">
-  <img src="/images/image-c1.png">
-</div>
-*Image generated by AI*
-
-<hr>
-<p>Studying the rhythm of swimming is a fascinating topic that integrates technology, physiology, and data science. Swimming rhythm is not merely about “how fast you stroke”; it represents the <strong>dynamic balance between stroke frequency and stroke length (distance per stroke)</strong> within one full swimming cycle, typically quantified by <strong>stroke rate</strong> and <strong>stroke count</strong>.</p>
-<p>Below is a complete methodology for studying swimming rhythm—from simple to complex, from qualitative to quantitative.</p>
-<hr>
-<h2 id="1-Defining-Research-Metrics-What-to-Measure"><a href="#1-Defining-Research-Metrics-What-to-Measure" class="headerlink" title="1. Defining Research Metrics: What to Measure?"></a>1. Defining Research Metrics: What to Measure?</h2><h3 id="Core-Metrics"><a href="#Core-Metrics" class="headerlink" title="Core Metrics"></a><strong>Core Metrics</strong></h3><ul>
-<li><strong>Stroke Rate (SR):</strong> Number of stroke cycles per unit time (strokes per minute).<br>Example: In a 25 m pool, time &#x3D; 20 s, strokes &#x3D; 20 →<br>SR &#x3D; 20 ÷ (20&#x2F;60) &#x3D; <strong>60 strokes&#x2F;min</strong>.</li>
-<li><strong>Stroke Count (SC):</strong> Number of strokes required to complete a fixed distance (e.g., 50 m).<br>Also referred to as “stroke efficiency index.”</li>
-<li><strong>Rhythm:</strong> Sometimes refers to the <strong>distribution of time across phases within one arm stroke</strong> (e.g., pull, push, recovery).<br>For example, the push phase may take up 40% of one cycle.</li>
-</ul>
-<h3 id="Derived-Metrics"><a href="#Derived-Metrics" class="headerlink" title="Derived Metrics"></a><strong>Derived Metrics</strong></h3><ul>
-<li><strong>Swimming Velocity (V):</strong> Distance per unit time (m&#x2F;s).<br>Formula: <strong>V &#x3D; Stroke Rate × Stroke Length</strong></li>
-<li><strong>Stroke Length (SL):</strong> Average distance traveled per stroke (m&#x2F;stroke).<br>Formula: <strong>SL &#x3D; Velocity ÷ Stroke Rate</strong><br>SL serves as a key indicator of efficiency and technique.</li>
-</ul>
-<h3 id="Associated-Metrics"><a href="#Associated-Metrics" class="headerlink" title="Associated Metrics"></a><strong>Associated Metrics</strong></h3><ul>
-<li><strong>Heart Rate, Blood Lactate:</strong> Used to evaluate physiological load under a given rhythm.</li>
-<li><strong>Turn Time:</strong> Critical when analyzing rhythm across entire laps.</li>
-</ul>
-<hr>
-<h2 id="2-Data-Acquisition-Methods-How-to-Collect-Data"><a href="#2-Data-Acquisition-Methods-How-to-Collect-Data" class="headerlink" title="2. Data Acquisition Methods: How to Collect Data?"></a>2. Data Acquisition Methods: How to Collect Data?</h2><h3 id="1-Manual-Counting-and-Video-Analysis-Low-Cost-High-Value"><a href="#1-Manual-Counting-and-Video-Analysis-Low-Cost-High-Value" class="headerlink" title="1) Manual Counting and Video Analysis (Low-Cost, High Value)"></a><strong>1) Manual Counting and Video Analysis (Low-Cost, High Value)</strong></h3><ul>
-<li><strong>Method:</strong> Use a stopwatch and a high-frame-rate camera to record swimming.  </li>
-<li><strong>Processing:</strong>  <ul>
-<li>Manual counting of strokes and time to compute stroke rate and length.  </li>
-<li>Video software (e.g., <em>Dartfish</em>, <em>Kinovea</em>) can measure stroke phase durations and generate motion trajectories.</li>
-</ul>
-</li>
-<li><strong>Pros:</strong> Simple, intuitive, low cost.  </li>
-<li><strong>Cons:</strong> Time-consuming, not suitable for long-term continuous monitoring, limited data.</li>
-</ul>
-<hr>
-<h3 id="2-Inertial-Measurement-Unit-IMU-—-The-Core-Tool-of-Modern-Research"><a href="#2-Inertial-Measurement-Unit-IMU-—-The-Core-Tool-of-Modern-Research" class="headerlink" title="2) Inertial Measurement Unit (IMU) — The Core Tool of Modern Research"></a><strong>2) Inertial Measurement Unit (IMU) — The Core Tool of Modern Research</strong></h3><ul>
-<li><p><strong>Sensor Placement:</strong> On <strong>wrists</strong>, <strong>upper back&#x2F;lower torso</strong>, <strong>ankles</strong>, etc.  </p>
-</li>
-<li><p><strong>Data Collected:</strong>  </p>
-<ul>
-<li><strong>Acceleration &amp; Angular Velocity</strong> precisely capture strokes and kicks.</li>
-</ul>
-</li>
-<li><p><strong>Data Analysis:</strong>  </p>
-<ul>
-<li><strong>Automatic Event Detection:</strong> By analyzing wrist IMU acceleration, it’s possible to <strong>detect each stroke’s start and end</strong>, calculating stroke rate and phase durations.  </li>
-<li><strong>Body Posture Analysis:</strong> Back-mounted IMU monitors body roll and stability.  </li>
-<li><strong>Kicking Rhythm:</strong> Ankle IMU tracks kicking frequency and amplitude.  </li>
-<li><strong>Turn Detection:</strong> Sudden changes in IMU data reveal turns and their timing.</li>
-</ul>
-</li>
-<li><p><strong>Pros:</strong> Rich, objective, long-term continuous data; reveals subtle, imperceptible motion changes.  </p>
-</li>
-<li><p><strong>Cons:</strong> Requires signal processing and algorithm knowledge; devices add cost.</p>
-</li>
-</ul>
-<hr>
-<h3 id="3-Pressure-Sensors-and-Underwater-Cameras"><a href="#3-Pressure-Sensors-and-Underwater-Cameras" class="headerlink" title="3) Pressure Sensors and Underwater Cameras"></a><strong>3) Pressure Sensors and Underwater Cameras</strong></h3><p>Used for in-depth biomechanical analysis of hand pressure and underwater trajectories—mostly in lab settings.</p>
-<hr>
-<h2 id="3-Research-Path-and-Key-Questions"><a href="#3-Research-Path-and-Key-Questions" class="headerlink" title="3. Research Path and Key Questions"></a>3. Research Path and Key Questions</h2><p>The essence of rhythm research is studying the <strong>relationship between stroke rate and stroke length</strong>, and finding optimal patterns for different goals.</p>
-<h3 id="1-Building-Individual-“Speed–Stroke-Rate–Stroke-Length”-Curves"><a href="#1-Building-Individual-“Speed–Stroke-Rate–Stroke-Length”-Curves" class="headerlink" title="1) Building Individual “Speed–Stroke Rate–Stroke Length” Curves"></a><strong>1) Building Individual “Speed–Stroke Rate–Stroke Length” Curves</strong></h3><ul>
-<li><strong>Method:</strong> Swim fixed distances at varying speeds, record time and stroke count, compute SR and SL.  </li>
-<li><strong>Analysis:</strong> Plot SR–SL curves. Typically, as speed increases, SR rises while SL first remains stable or increases slightly, then declines.  </li>
-<li><strong>Goal:</strong> Identify the <strong>stroke rate where stroke length is maximized</strong>—often the point of optimal efficiency.</li>
-</ul>
-<hr>
-<h3 id="2-Analyzing-the-Effect-of-Fatigue-on-Rhythm"><a href="#2-Analyzing-the-Effect-of-Fatigue-on-Rhythm" class="headerlink" title="2) Analyzing the Effect of Fatigue on Rhythm"></a><strong>2) Analyzing the Effect of Fatigue on Rhythm</strong></h3><ul>
-<li><strong>Method:</strong> Monitor rhythm metrics continuously during long or intense training.  </li>
-<li><strong>Analysis:</strong> Observe how SR and SL change as fatigue accumulates.  <ul>
-<li>Common pattern: SR remains constant or increases, SL decreases — indicating technical breakdown and efficiency loss.  </li>
-<li><strong>Significance:</strong> Evaluates endurance and technical stability; informs training design.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="3-Comparing-Rhythms-Between-Different-Technique-Levels"><a href="#3-Comparing-Rhythms-Between-Different-Technique-Levels" class="headerlink" title="3) Comparing Rhythms Between Different Technique Levels"></a><strong>3) Comparing Rhythms Between Different Technique Levels</strong></h3><ul>
-<li><strong>Method:</strong> Compare data between elite and amateur swimmers.  </li>
-<li><strong>Analysis:</strong>  <ul>
-<li>Elites usually maintain <strong>longer SL and lower SR</strong> at the same speed.  </li>
-<li>Their <strong>rhythm stability</strong> is also higher.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="4-Exploring-Personalized-Optimal-Rhythms"><a href="#4-Exploring-Personalized-Optimal-Rhythms" class="headerlink" title="4) Exploring Personalized Optimal Rhythms"></a><strong>4) Exploring Personalized Optimal Rhythms</strong></h3><ul>
-<li><strong>Core Idea:</strong> There is no universal “perfect rhythm.” Optimal rhythm depends on <strong>body structure, strength, flexibility, and technique</strong>.  </li>
-<li><strong>Method:</strong> Combine physiological metrics (heart rate, VO₂) to find rhythm combinations with lowest energy cost and highest efficiency at a target intensity (e.g., lactate threshold).</li>
-</ul>
-<hr>
-<h2 id="4-Practical-Application-Case"><a href="#4-Practical-Application-Case" class="headerlink" title="4. Practical Application Case"></a>4. Practical Application Case</h2><p><strong>Scenario:</strong> Helping an amateur swimmer improve 1500 m freestyle performance.</p>
-<ol>
-<li><strong>Baseline Evaluation:</strong><br>Record with IMU or video. Observation: stroke count rises sharply in later laps; rhythm becomes unstable.  </li>
-<li><strong>Problem Diagnosis:</strong><br>Fatigue causes shorter stroke length; swimmer compensates by increasing stroke rate, breaking rhythm and reducing efficiency.  </li>
-<li><strong>Training Intervention:</strong>  <ul>
-<li><strong>Technical Training:</strong> Kickboard drills, single-arm swimming — focus on <strong>improving stroke length</strong>.  </li>
-<li><strong>Rhythm Training:</strong> Use a waterproof metronome (beep pace) to train at specific stroke rates, gradually adapting to higher tempos.  </li>
-<li><strong>Endurance Training:</strong> High-intensity interval sessions while monitoring rhythm stability.</li>
-</ul>
-</li>
-<li><strong>Outcome Evaluation:</strong><br>Re-test after training; expect more stable stroke count, longer SL, improved overall time.</li>
-</ol>
-<hr>
-<h2 id="5-Summary"><a href="#5-Summary" class="headerlink" title="5. Summary"></a>5. Summary</h2><p>The study of swimming rhythm has evolved from traditional coaching intuition to a <strong>precision, data-driven discipline</strong>.</p>
-<ul>
-<li><strong>Core Concept:</strong> Understanding and optimizing <strong>Velocity &#x3D; Stroke Rate × Stroke Length</strong>.  </li>
-<li><strong>Tools:</strong> From stopwatch and camera to <strong>IMU sensors</strong>, tool choice defines data depth and accuracy.  </li>
-<li><strong>Research Path:</strong> Build personal curves, analyze fatigue effects, perform comparisons, and find the athlete’s <strong>most efficient personalized rhythm</strong>.</li>
-</ul>
-<p>Whether you are an athlete, coach, or researcher, mastering this framework brings a deeper understanding of swimming’s underlying mechanics.</p>
-<div class="image-container">
-  <img src="/images/image-c2.png">
-</div>
-
-<p><em>Image generated by AI</em></p>
-<blockquote>
-<p>AI provided an excellent structural analysis and summary.<br>I also used AI to generate the accompanying images, saving considerable time.<br>This article, titled <strong>“Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm,”</strong> documents the discussion and decisions made with my advisor.<br>Next, I will review the hardware implementation process — progressing into <strong>component selection → design → development</strong>.</p>
-</blockquote>
-<blockquote>
-<p><strong>💡 Author’s Note</strong><br>This article was co-created with AI.<br>The AI helped me organize past discussions and reflections into a structured summary, while I recorded the original conversations and final research decisions with my advisor.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/" data-id="cuid7n9BDmDTA-67aJFg3mrPe" data-title="Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Swimming_Research_Topic_English" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/30/Swimming_Research_Topic_English/" class="article-date">
-  <time class="dt-published" datetime="2025-10-30T12:57:32.308Z" itemprop="datePublished">2025-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/30/Swimming_Research_Topic_English/">When Engineering Meets Swimming: Turning Technique into Data</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><blockquote>
-<p>Last year, I participated in a science and innovation competition at school. Under the guidance of my mentor, I worked on a drone project and became deeply involved in it. Through this project, I learned knowledge and skills related to control, mechanics, circuits, signal processing, motor driving, and sensor data transmission. My hands-on abilities improved significantly, and I developed a strong interest in creating technological works. The greatest sense of achievement came from seeing a device I designed, built, and debugged actually operate and perform tasks. Although the quadcopter project did not qualify in that competition, my mother reminded me that I had been practicing swimming since childhood and participated in many swimming competitions. Based on that background, she suggested that I could conduct an engineering research project combining swimming and technology. That idea excited me greatly, so I began research, design, and experiments related to it last year. I will record my experiences from the past year one by one in this blog.</p>
-</blockquote>
-<h2 id="Motivation-How-to-Improve-My-Swimming-Performance"><a href="#Motivation-How-to-Improve-My-Swimming-Performance" class="headerlink" title="Motivation: How to Improve My Swimming Performance"></a>Motivation: How to Improve My Swimming Performance</h2><blockquote>
-<p>The purpose of doing research around my swimming training and competitions is, of course, to improve my swimming performance.<br>During daily training, my coach often emphasizes key points of swimming technique. How could I quickly summarize these technical essentials? I asked an AI: To improve my performance, I must first understand what affects it. The AI gave me the following answer.</p>
-</blockquote>
-<h2 id="Three-Core-Factors-for-Improving-Swimming-Performance"><a href="#Three-Core-Factors-for-Improving-Swimming-Performance" class="headerlink" title="Three Core Factors for Improving Swimming Performance"></a>Three Core Factors for Improving Swimming Performance</h2><blockquote>
-<p>The AI summarized it as follows:<br>Improving swimming performance is a systematic process that can be attributed to three core elements: <strong>biomechanics (technique)</strong>, <strong>physiology (physical ability)</strong>, and <strong>psychology (mental strength)</strong>. Among them, biomechanics (technique) is the most complex, delicate, and also the most suitable part to be analyzed and optimized using engineering methods.</p>
-</blockquote>
-<h3 id="1-Biomechanics-The-“Technical-Soul”-of-Swimming"><a href="#1-Biomechanics-The-“Technical-Soul”-of-Swimming" class="headerlink" title="1. Biomechanics: The “Technical Soul” of Swimming"></a>1. Biomechanics: The “Technical Soul” of Swimming</h3><p>This part focuses on how to make the <strong>human body as a “biological machine”</strong> move through the water with maximum efficiency and minimal resistance.</p>
-<ol>
-<li><p><strong>Reducing Resistance – “Becoming Streamlined”</strong></p>
-<ul>
-<li><strong>Streamlined body position</strong>: The foundation of all technique. The key is to keep the body as straight as possible at all times to minimize the frontal area. This includes:<ul>
-<li><strong>Core stability</strong>: If your midsection (waist and abdomen) is unstable, it’s like a soft rope — no matter how hard your limbs work, power is wasted and body wobble increases drag.</li>
-<li><strong>Head position</strong>: Eyes should look toward the bottom of the pool, keeping the spine aligned, as if a string is pulling your head forward.</li>
-<li><strong>Body rotation</strong>: Especially in freestyle and backstroke, moderate rotation around the spine reduces shoulder entry resistance and better engages core strength.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Increasing Propulsion – “Pulling Efficiently”</strong></p>
-<ul>
-<li><strong>High-elbow catch</strong>: The core source of propulsion. You don’t push water with your palms; instead, you “anchor” your arms and hands in the water and pull your body past that fixed point using your torso and shoulders. <strong>Early vertical forearm</strong> is the key to achieving a high-elbow catch.</li>
-<li><strong>Power sequence and core activation</strong>: The pulling motion should not rely solely on the arms. The correct order is “core initiates → transfers to shoulders → then to arms,” like a whip motion. Your core muscles are the engine, while the arms are just the drive shafts.</li>
-<li><strong>Surface area and feel for water</strong>: You should use not just your palms but also your forearms as a single surface during the catch phase — this is known as “feel for the water.”</li>
-</ul>
-</li>
-<li><p><strong>Rhythm and Timing – “Making Movements Harmonious”</strong></p>
-<ul>
-<li><strong>Breathing timing</strong>: Breathing is the only movement that disrupts the streamlined body position and rhythm. It must be completed quickly and lightly during the trough of body rotation to minimize interference.</li>
-<li><strong>Coordination of arms and legs</strong>: The main role of kicking is to balance the body, lift the lower limbs, provide partial propulsion, and assist the core. The rhythm of the kick must be precisely synchronized with the stroke.</li>
-</ul>
-</li>
-</ol>
-<h3 id="2-Physiology-The-“Energy-Engine”-of-Swimming"><a href="#2-Physiology-The-“Energy-Engine”-of-Swimming" class="headerlink" title="2. Physiology: The “Energy Engine” of Swimming"></a>2. Physiology: The “Energy Engine” of Swimming</h3><p>Without physical conditioning, even the best technique is meaningless.</p>
-<ol>
-<li><strong>Aerobic capacity</strong>: The foundation for long-distance events, determining sustained power output and recovery speed.  </li>
-<li><strong>Anaerobic capacity</strong>: Determines sprint ability and acceleration after starts and turns.  </li>
-<li><strong>Strength and flexibility</strong>:<ul>
-<li><strong>Dryland strength</strong>: Especially core, back (main pulling muscles), and shoulder strength.</li>
-<li><strong>In-water strength</strong>: Specific strength for generating force in a water environment.</li>
-<li><strong>Flexibility</strong>: Excellent shoulder and ankle flexibility (particularly plantar flexion) directly increase stroke length and kick efficiency.</li>
-</ul>
-</li>
-</ol>
-<h3 id="3-Psychology-The-“Commander”-of-Swimming"><a href="#3-Psychology-The-“Commander”-of-Swimming" class="headerlink" title="3. Psychology: The “Commander” of Swimming"></a>3. Psychology: The “Commander” of Swimming</h3><ol>
-<li><strong>Feel for water</strong>: An intuition of how water flows and how to “grip” it — developed through thousands of strokes.  </li>
-<li><strong>Rhythm and focus</strong>: Maintaining form under fatigue, focusing on personal rhythm and tactics without being disturbed by competitors.  </li>
-<li><strong>Tactical intelligence</strong>: Includes energy distribution, start and turn precision, and situational awareness during races.</li>
-</ol>
-<h2 id="How-Can-These-Elements-Be-Combined-with-My-Engineering-Project-—-Entry-Points-from-Engineering-Perspective"><a href="#How-Can-These-Elements-Be-Combined-with-My-Engineering-Project-—-Entry-Points-from-Engineering-Perspective" class="headerlink" title="How Can These Elements Be Combined with My Engineering Project? — Entry Points from Engineering Perspective"></a>How Can These Elements Be Combined with My Engineering Project? — Entry Points from Engineering Perspective</h2><blockquote>
-<p>After learning the three key elements of swimming performance, I wanted to find a feasible research topic. Since I still lack a lot of professional engineering knowledge, I hope the research goal can be small and achievable. Here are the AI’s suggestions:<br><strong>Use engineering tools to quantify, analyze, and optimize the above biomechanical elements.</strong></p>
-</blockquote>
-<ul>
-<li><p><strong>For “Reducing Resistance”</strong>:</p>
-<ul>
-<li><strong>Engineering research</strong>: You can design an <strong>underwater video analysis system</strong> (using waterproof sports cameras) combined with computer vision algorithms to automatically identify and quantify body posture angles (e.g., hip drop angle, head tilt) and compute cross-sectional area changes — much more precise than a coach’s visual observation.</li>
-</ul>
-</li>
-<li><p><strong>For “Increasing Propulsion”</strong>:</p>
-<ul>
-<li><strong>Engineering research</strong>: You could develop a <strong>wearable sensor system</strong> (IMUs placed on wrists, elbows, and shoulders) to measure <strong>high-elbow angles, stroke path stability, and stroke frequency</strong>. You might also build a simple <strong>hand pressure sensor</strong> to quantify “feel for water,” i.e., how much force the swimmer applies during the catch phase.</li>
-</ul>
-</li>
-<li><p><strong>For “Rhythm and Timing”</strong>:</p>
-<ul>
-<li><strong>Engineering research</strong>: Using the same IMU or video analysis, you could <strong>automatically calculate stroke cycle duration, breathing side rotation angle, and kick-stroke synchronization</strong>, generating visualized data reports.</li>
-</ul>
-</li>
-</ul>
-<p><strong>In summary:</strong><br>Your unique advantage is that you not only <em>know</em> these key elements — you have <em>felt</em> them with your body. Now your task is to use engineering technology to translate those “feelings” into “data,” turning the coach’s “experience” into “scientific evidence.”</p>
-<blockquote>
-<p>After reviewing these suggestions, I realized that the “rhythm and timing” category might be the easiest to implement. It reminds me of PWM waveforms in motor control — alternating between high and low states. I could use similar methods to find such cycles. And indeed, swimming rhythm is crucial. From this, I found my research direction.</p>
-</blockquote>
-<blockquote>
-<p><strong>💡 Author’s Note</strong><br>The above content is organized and summarized through my own reflections and collaboration with AI.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/30/Swimming_Research_Topic_English/" data-id="cuidc7JdEaHxLkYaHEfgAYHzl" data-title="When Engineering Meets Swimming: Turning Technique into Data" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Learning_Python_through_Kaggle_Courses_EN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/28/Learning_Python_through_Kaggle_Courses_EN/" class="article-date">
-  <time class="dt-published" datetime="2025-10-28T11:49:33.260Z" itemprop="datePublished">2025-10-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/28/Learning_Python_through_Kaggle_Courses_EN/">Learning Python through Kaggle Courses</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <hr>
-<blockquote>
-<p><strong>📌 Key Points</strong></p>
-<ul>
-<li><strong>Learning Python helps me quickly turn ideas into reality.</strong></li>
-<li><strong><a target="_blank" rel="noopener" href="https://www.kaggle.com/learn">Kaggle Courses</a> is an excellent platform for learning Python and machine learning.</strong></li>
-<li><strong>Follow the time recommendations provided in each course.</strong></li>
-<li><strong>Type all code manually and complete every exercise.</strong></li>
-<li><strong>Debugging is essential; using AI tools for solving code problems can greatly improve efficiency.</strong></li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="1-Motivation-Why-I-Want-to-Learn-Python"><a href="#1-Motivation-Why-I-Want-to-Learn-Python" class="headerlink" title="1. Motivation: Why I Want to Learn Python"></a><strong>1. Motivation: Why I Want to Learn Python</strong></h2><p>In today’s data-driven world, programming has become an essential skill. Among the many programming languages, I chose Python for two main reasons:</p>
-<ol>
-<li><p><strong>Learning AI requires Python.</strong><br>Python is widely used in data analysis, artificial intelligence, machine learning, web development, and automation scripting. Whether for academic research or future career development, mastering Python opens new opportunities for me.</p>
-</li>
-<li><p><strong>To turn ideas into reality quickly.</strong><br>I have seen some AI applications—like voice-interactive devices—where most of the code was written in Python: simple, powerful, and easy to understand. Learning Python allows me to bring my ideas to life quickly.</p>
-</li>
-</ol>
-<p>In short, learning Python improves my technical skills, helps me rapidly implement my ideas, and prepares me for future learning and development.</p>
-<hr>
-<h2 id="2-Discovering-the-Course-Why-I-Chose-Kaggle-Courses"><a href="#2-Discovering-the-Course-Why-I-Chose-Kaggle-Courses" class="headerlink" title="2. Discovering the Course: Why I Chose Kaggle Courses"></a><strong>2. Discovering the Course: Why I Chose <a target="_blank" rel="noopener" href="https://www.kaggle.com/learn">Kaggle Courses</a></strong></h2><p>After deciding to learn Python, my first question was how to find an efficient and structured learning path. Since I am often busy, I needed a platform that is time-efficient yet comprehensive. After research and comparison:</p>
-<ul>
-<li><strong>Platform Reputation:</strong><br>I learned that Kaggle is the world’s largest data science community and competition platform, highly respected among professionals and researchers.</li>
-<li><strong>Course Relevance:</strong><br>Unlike generic programming tutorials, Kaggle Courses (such as “Python” and “Pandas”) are designed specifically for data science, focusing on the most practical and essential skills.</li>
-<li><strong>Hands-On Approach:</strong><br>Kaggle Courses emphasize <em>learning by doing</em>. The browser-based environment requires no setup and allows immediate coding practice.</li>
-<li><strong>Most importantly:</strong><br>Each course module lists an estimated study time. This feature gave me confidence and helped me plan my learning schedule while keeping myself focused and ensuring quality.</li>
-</ul>
-<hr>
-<div class="image-container">
-  <img src="/images/image.png">
-</div>
-
-
-<h2 id="3-Learning-Process-and-Methods-How-I-Studied"><a href="#3-Learning-Process-and-Methods-How-I-Studied" class="headerlink" title="3. Learning Process and Methods: How I Studied"></a><strong>3. Learning Process and Methods: How I Studied</strong></h2><p>My learning process followed a gradual and practical approach — combining theory with hands-on exercises.</p>
-<ol>
-<li><p><strong>Setting a Learning Plan:</strong><br>I started with the <strong>“Python”</strong> micro-course, then moved on to <strong>“Pandas”</strong>, which focuses on data processing, and later explored other topics like <strong>“Data Visualization.”</strong><br>I studied according to the time suggestions provided in each module, sometimes spending extra time when needed, especially at the beginning. Later, I tried to stick closely to the recommended time to maintain consistency.</p>
-</li>
-<li><p><strong>Immersive Learning and Practice:</strong></p>
-<ul>
-<li><strong>Following the lessons carefully:</strong><br>I read each tutorial carefully and made sure to understand the examples and concepts.</li>
-<li><strong>Completing every exercise:</strong><br>I solved all the practice problems independently. When errors appeared, I analyzed the error messages, reviewed the lessons, or sought help from AI tools or online searches. This process deepened my understanding.</li>
-<li><strong>Using Kaggle’s kernels and community:</strong><br>The auto-complete and notebook features were very helpful. I often tried alternative coding methods to strengthen my knowledge.</li>
-</ul>
-</li>
-<li><p><strong>Time Investment:</strong><br>I spent about <strong>20–25 hours</strong> completing the “Python” and “Pandas” courses over three weeks, studying 1–1.5 hours daily. This routine helped me stay consistent and focused.</p>
-</li>
-<li><p><strong>Most Important:</strong><br>Typing code manually and debugging is crucial. Coding is like playing the piano—the more you practice, the stronger your muscle memory becomes. Continuous hands-on coding helped me build confidence and fluency in Python.</p>
-</li>
-</ol>
-<hr>
-<div class="image-container">
-  <img src="/images/image-1.png">
-</div>
-
-<h2 id="4-Learning-Outcomes-and-Achievements"><a href="#4-Learning-Outcomes-and-Achievements" class="headerlink" title="4. Learning Outcomes and Achievements"></a><strong>4. Learning Outcomes and Achievements</strong></h2><p>After completing this learning journey, I achieved far more than expected:</p>
-<ol>
-<li><p><strong>Mastered the basics of Python programming:</strong><br>I became familiar with variables, data types, lists, dictionaries, loops, conditionals, functions, and classes.</p>
-</li>
-<li><p><strong>Gained core data-handling skills:</strong><br>This was my biggest achievement. Through the “Pandas” course, I learned how to:</p>
-<ul>
-<li>Read and write data files such as CSVs.  </li>
-<li>Use DataFrames for indexing, selecting, filtering, and sorting data.  </li>
-<li>Handle missing values.  </li>
-<li>Perform grouping, aggregation, and pivot-table operations.  </li>
-<li>Create basic data visualizations using libraries like Seaborn (line, bar, scatter plots, etc.).</li>
-</ul>
-</li>
-<li><p><strong>Built confidence in solving real-world problems:</strong><br>The final comprehensive exercises simulated real data analysis tasks. I successfully completed the full workflow—from data cleaning and exploration to drawing conclusions—confirming my ability to handle simple data analysis using Python.</p>
-</li>
-</ol>
-<hr>
-<div class="image-container">
-  <img src="/images/image-2.png">
-</div>
-
-<h2 id="5-Reflection-and-Future-Plans"><a href="#5-Reflection-and-Future-Plans" class="headerlink" title="5. Reflection and Future Plans"></a><strong>5. Reflection and Future Plans</strong></h2><p>Looking back, Kaggle Courses offered an <em>ideal starting point</em> for beginners like me, with its <strong>precise content, hands-on design, and smooth learning experience</strong>.<br>It taught me not only Python and Pandas syntax but also the mindset of solving data problems through programming.</p>
-<p>Looking ahead, this is just the beginning.<br>I plan to continue exploring more courses on Kaggle—especially in data visualization and machine learning—and apply the knowledge to my own research projects, continuously enhancing my data science skills.</p>
-<hr>
-<blockquote>
-<p><strong>💡 Author’s Note</strong>  </p>
-<p>This article was co-created with AI assistance. The AI helped with structure and general writing, while I contributed the key insights, personal experiences, and reflections that represent my own unique learning journey.</p>
-</blockquote>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/28/Learning_Python_through_Kaggle_Courses_EN/" data-id="cuidJFWmT8WnoBYc5fj3iXpR3" data-title="Learning Python through Kaggle Courses" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/27/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-10-27T12:26:47.280Z" itemprop="datePublished">2025-10-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/27/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/27/hello-world/" data-id="cuidK5up91wX7oQMry46GW1oV" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">November 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">October 2025</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2025/11/02/IMU_Data_Acquisition_and_Storage_Experiment_Seeed_XIAO_JY901_EN/">IMU Data Acquisition and Storage Experiment Based on Seeed XIAO and JY901</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/">Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/">Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/30/Swimming_Research_Topic_English/">When Engineering Meets Swimming: Turning Technique into Data</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/28/Learning_Python_through_Kaggle_Courses_EN/">Learning Python through Kaggle Courses</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+<!-- ═══════════════════════ TEASER ═══════════════════════ -->
+<main>
+  <figure class="teaser">
+    <img src="static/images/fig1-hd-1.png" alt="System overview: FPGA-based water sports safety monitoring pipeline" />
+    <figcaption>System overview: diffusion-based droplet removal integrated with FPGA-accelerated SwimYOLO detection on ZCU102.</figcaption>
+  </figure>
+
+  <!-- ═══════════════════════ ABSTRACT ═══════════════════════ -->
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>Water sports safety can be enhanced by video-based monitoring that enables timely assistance based on participants' states. However, in outdoor aquatic environments, <strong>droplets on camera lenses</strong> cause false and missed detections in YOLO-based systems. In addition, multiple camera streaming makes center-based processing costly in both real-time computation and communication.</p>
+    <p>To address these issues, this letter presents a real-time FPGA-based safety monitoring system for water sports. First, a lightweight diffusion-based method is proposed to remove droplets from camera lenses, reducing false detections and missed alarms. Then, an overlay hardware architecture is designed to support the processing of different backbone models. The system is implemented on a ZCU102 FPGA to enable on-device real-time droplet removal and human states detection.</p>
+
+    <div class="stats">
+      <div class="stat-card">
+        <span class="num">+16.5%</span>
+        <div class="desc">mAP@50 improvement</div>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2025 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <div class="stat-card">
+        <span class="num">+18.4%</span>
+        <div class="desc">AP improvement</div>
+      </div>
+      <div class="stat-card">
+        <span class="num">44.77</span>
+        <div class="desc">FPS on ZCU102</div>
+      </div>
+      <div class="stat-card">
+        <span class="num">9.79 W</span>
+        <div class="desc">Power consumption</div>
+      </div>
+      <div class="stat-card">
+        <span class="num">2.74×</span>
+        <div class="desc">Energy efficiency vs edge GPU</div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- ═══════════════════════ MOTIVATION ═══════════════════════ -->
+  <section id="motivation">
+    <h2>Motivation</h2>
+    <p>Water has always been a part of my life. Years of competitive swimming taught me to read the water — to notice when a swimmer's stroke breaks down, when something is wrong. That awareness sharpened during a diving trip to Hawaii, where I realized how completely I was relying on the person watching from above, and how quickly a single patch of spray on a camera lens could leave a swimmer in distress unseen.</p>
+    <p>This is what drew our team to the problem. Camera-based monitoring systems are routinely degraded in real outdoor aquatic environments by something as mundane as water droplets on the lens — causing false alarms where there are none, and missing genuine emergencies. The gap between a laboratory benchmark and a rain-spattered poolside camera is, in practice, the gap between a system that saves lives and one that merely looks like it might. Our work started from the conviction that this gap is solvable, and that solving it matters.</p>
+  </section>
+
+  <!-- ═══════════════════════ VIDEO ═══════════════════════ -->
+  <section id="video">
+    <h2>Demo Video</h2>
+    <p>Real-time droplet removal and drowning detection running on the ZCU102 FPGA board.</p>
+
+    <!-- 
+      ────────────────────────────────────────────────────────────
+      VIDEO 嵌入方式 — 选择其中一种，删除另外两种
+      ────────────────────────────────────────────────────────────
+
+      【方式 A】YouTube 视频（推荐，最稳定）
+      把 YOUR_YOUTUBE_ID 换成你的视频 ID，例如 dQw4w9WgXcQ
+    -->
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/YOUR_YOUTUBE_ID?rel=0&modestbranding=1"
+        title="Demo video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!--
+      【方式 B】本地/自托管 MP4（放到 static/videos/ 下）
+      把下面的注释取消，把方式A的 div 注释掉
+
+    <div class="video-wrap">
+      <video controls preload="metadata" poster="static/images/fig1-hd-1.png">
+        <source src="static/videos/demo.mp4" type="video/mp4" />
+        Your browser does not support video playback.
+      </video>
+    </div>
+    -->
+
+    <!--
+      【方式 C】Bilibili 视频
+      把 YOUR_BV_ID 换成你的 BV 号，例如 BV1xx411c7XE
+
+    <div class="video-wrap">
+      <iframe
+        src="https://player.bilibili.com/player.html?bvid=YOUR_BV_ID&page=1&high_quality=1&danmaku=0"
+        allowfullscreen scrolling="no" allow="autoplay">
+      </iframe>
+    </div>
+    -->
+  </section>
+
+  <!-- ═══════════════════════ VISUAL RESULTS ═══════════════════════ -->
+  <section id="results">
+    <h2>Visual Results</h2>
+    <p>Qualitative comparison of input (with water droplets) vs. our restored output, followed by detection results.</p>
+
+    <div class="comparison-grid">
+      <div class="comp-item">
+        <img src="static/images/compare/input_01.png" alt="Input with droplets sample 1" />
+        <div class="comp-label"><span>Input</span><span>Output →</span></div>
+      </div>
+      <div class="comp-item">
+        <img src="static/images/compare/output_01.png" alt="Output after droplet removal sample 1" />
+        <div class="comp-label"><span>← Input</span><span>Output</span></div>
+      </div>
+      <!-- 复制上面两个 div 来添加更多对比图 -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ BIBTEX ═══════════════════════ -->
+  <section id="bibtex">
+    <h2>BibTeX</h2>
+    <div class="bibtex-wrap">
+      <button class="copy-btn" onclick="copyBib(this)">Copy</button>
+      <pre id="bib-text">@article{fan2026fpga,
+  author  = {Fan, Xue and Xu, Katherine and Jiang, Wei and Zhang, Song and Bai, Yueyin},
+  journal = {IEEE Embedded Systems Letters},
+  title   = {FPGA-Based Real-Time Safety Monitoring System for Water Sports
+             with Diffusion-Based Droplet Removal},
+  year    = {2026},
+  pages   = {1--1},
+  doi     = {10.1109/LES.2026.3690742}
+}</pre>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>This website is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a> License.</p>
 </footer>
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+<script>
+  function copyBib(btn) {
+    const text = document.getElementById('bib-text').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
 </body>
 </html>
