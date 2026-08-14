@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pre-Deployment IMU Validation Experiment Using a Fixed-Rotation Swimming Toy | Kathy Xu Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A low-risk pool experiment using a fixed-rotation swimming toy to validate IMU waterproofing, recording completeness, and periodic-motion measurements before deployment on a real swimmer.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Pre-Deployment IMU Validation Experiment Using a Fixed-Rotation Swimming Toy">
+  <meta property="og:url" content="http://example.com/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/index.html">
+  <meta property="og:site_name" content="Kathy Xu Lab">
+  <meta property="og:description" content="A fixed-rotation swimming toy provides a low-cost baseline for checking an underwater IMU logger before collecting data from a real swimmer.">
+  <meta property="og:image" content="http://example.com/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/toy_zoom.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-14T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-08-14T00:00:00.000Z">
+  <meta property="article:author" content="John Doe">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" href="/atom.xml" title="Kathy Xu Lab" type="application/atom+xml">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+  <meta name="generator" content="Hexo 8.1.0">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+        <div id="banner"></div>
+        <div id="header-outer" class="outer">
+          <div id="header-title" class="inner">
+            <h1 id="logo-wrap"><a href="/" id="logo">Kathy Xu Lab</a></h1>
+          </div>
+          <div id="header-inner" class="inner">
+            <nav id="main-nav">
+              <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+              <a class="main-nav-link" href="/">Home</a>
+              <a class="main-nav-link" href="/archives">Archives</a>
+            </nav>
+            <nav id="sub-nav">
+              <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+              <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+            </nav>
+            <div id="search-form-wrap">
+              <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <div class="article-meta">
+            <a href="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/" class="article-date">
+              <time class="dt-published" datetime="2026-08-14T00:00:00.000Z" itemprop="datePublished">2026-08-14</time>
+            </a>
+          </div>
+          <div class="article-inner">
+            <header class="article-header">
+              <h1 class="p-name article-title" itemprop="headline name">Pre-Deployment IMU Validation Experiment Using a Fixed-Rotation Swimming Toy</h1>
+            </header>
+            <div class="e-content article-entry" itemprop="articleBody">
+              <p><img src="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/toy_zoom.png" alt="Periodic gyroscope and accelerometer signals recorded from the fixed-rotation swimming toy"></p>
+              <p><em>Featured image: A close view of one active window. The gyroscope Z-axis and accelerometer X-axis both preserve the toy&apos;s periodic rotation.</em></p>
+
+              <h2 id="Background-and-Motivation"><a href="#Background-and-Motivation" class="headerlink" title="Background and Motivation"></a>Background and Motivation</h2>
+              <p>Before strapping the IMU logger onto a real swimmer&apos;s wrist for a full training session, I did not want the first underwater test to gamble an entire session on whether the hardware would work. Instead, I mounted the device on a fixed-rotation swimming toy and ran a low-cost, low-risk pilot experiment in the pool.</p>
+              <p>The toy made it possible to test repeatedly without coordinating a swimmer&apos;s schedule. More importantly, it let me answer three practical questions before deployment:</p>
+              <ul>
+                <li>Would the 3D-printed enclosure, IMU, and SD-card system remain reliable through repeated submersion?</li>
+                <li>Would the logger preserve a complete recording without dropped frames, corruption, or underwater disconnections?</li>
+                <li>What would a simple periodic motion look like at the actual sensor sampling rate?</li>
+              </ul>
+              <p>This experiment follows the earlier <a href="/2025/11/02/IMU_Data_Acquisition_and_Storage_Experiment_Seeed_XIAO_JY901_EN/">IMU Data Acquisition and Storage Experiment Based on Seeed XIAO and JY901</a>, which had validated the same hardware setup on land.</p>
+
+              <h2 id="Experiment-Design"><a href="#Experiment-Design" class="headerlink" title="Experiment Design"></a>Experiment Design</h2>
+              <ul>
+                <li><strong>Device:</strong> Seeed XIAO, JY901 9-axis IMU, and an SD-card module inside a 3D-printed enclosure.</li>
+                <li><strong>Motion source:</strong> A swimming toy that produces repetitive rotational motion.</li>
+                <li><strong>Scenario:</strong> The toy was repeatedly started, rotated, paused, submerged, and returned to the surface.</li>
+                <li><strong>Recording:</strong> The full session, including quiet intervals, was retained so that both motion and resting-state data could be checked.</li>
+              </ul>
+
+              <p><img loading="lazy" src="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/toy_device_photo.jpg" alt="Swimming toy with the IMU module mounted at its waist"></p>
+              <p><em>Figure 1: The IMU module was fixed to the toy&apos;s waist with a bracket and connected by wires.</em></p>
+
+              <p><img loading="lazy" src="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/toy_pool_test_photo.jpg" alt="Fixed-rotation swimming toy being tested in a pool"></p>
+              <p><em>Figure 2: The toy was controlled with a long pole and repeatedly rotated at and below the water surface.</em></p>
+
+              <p>The final log contains <strong>6,765 rows</strong> spanning <strong>871.5 seconds</strong>, or about 14.5 minutes. During that time, the toy completed 15 distinct active windows separated by clear resting intervals.</p>
+
+              <h2 id="Data-Completeness-and-Device-Reliability"><a href="#Data-Completeness-and-Device-Reliability" class="headerlink" title="Data Completeness and Device Reliability"></a>Data Completeness and Device Reliability</h2>
+              <p><img loading="lazy" src="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/toy_full_overview.png" alt="Full-session gyroscope magnitude with 15 active rotation windows highlighted"></p>
+              <p><em>Figure 3: Gyroscope magnitude across the full 871-second recording. Green shading marks the 15 automatically identified active windows.</em></p>
+
+              <p>The full recording showed no missing values or abnormal timing jumps. The median sampling interval was approximately <strong>129 ms</strong>, corresponding to <strong>7.75 Hz</strong>, with a standard deviation of only 3.8 ms. Serial communication and SD-card writes therefore remained stable through repeated submersion and surfacing, and the enclosure showed no evidence of water ingress.</p>
+              <p>That result clears the two most immediate deployment risks: the hardware survived a long underwater session, and the complete acquisition-to-storage path remained intact.</p>
+              <p>It also exposed an important discrepancy. The measured rate of about 7.75 Hz is much lower than the 50–100 Hz discussed in the earlier hardware test. The firmware and logging configuration should be checked before using the device for finer-grained stroke-style recognition.</p>
+
+              <h2 id="Preliminary-Periodicity-Analysis"><a href="#Preliminary-Periodicity-Analysis" class="headerlink" title="Preliminary Periodicity Analysis"></a>Preliminary Periodicity Analysis</h2>
+              <p>The featured plot at the top of this post zooms in on one active interval, from roughly 460 to 520 seconds. Both the gyroscope Z-axis and accelerometer X-axis show recognizable periodic waveforms, confirming that the IMU captures the toy&apos;s rotational rhythm even at the measured sampling rate.</p>
+              <p>Each cycle was estimated by detecting peaks in the combined gyroscope magnitude:</p>
+              <pre><code>from scipy.signal import find_peaks
+import numpy as np
+
+def cycle_periods(t, sig, min_period_s, max_period_s):
+    dt = np.median(np.diff(t))
+    distance = max(1, int(round(min_period_s / dt)))
+    prominence = np.std(sig) * 0.5
+    peaks, _ = find_peaks(sig, distance=distance,
+                          prominence=prominence)
+    if len(peaks) &lt; 4:
+        return None
+    periods = np.diff(t[peaks])
+    keep = (periods &gt;= min_period_s) &amp; (periods &lt;= max_period_s)
+    return periods[keep]</code></pre>
+
+              <p><img loading="lazy" src="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/toy_rate_cv.png" alt="Rotation rate and period coefficient of variation for 15 active windows"></p>
+              <p><em>Figure 4: Rotation rate and timing consistency for each of the 15 active windows.</em></p>
+              <p>The estimated rotation rate ranged from <strong>63 to 122 cycles per minute</strong>, with a median near 91 cycles per minute, equivalent to a period of about 0.66 seconds. The period coefficient of variation (CV) ranged from <strong>0.22 to 0.46</strong>, with a median around 0.35.</p>
+
+              <h2 id="What-the-Baseline-Taught-Me"><a href="#What-the-Baseline-Taught-Me" class="headerlink" title="What the Baseline Taught Me"></a>What the Baseline Taught Me</h2>
+              <p>The rate range is in the same broad region as the 57–81 strokes per minute observed in a real-swimmer dataset. This provides an initial practical constraint for a future sliding-window detector: a window should cover at least 1.5–2 cycles, or roughly 1–2 seconds, to contain a complete motion pattern.</p>
+              <p>The timing variability was the more surprising result. I had expected a fixed mechanical rotation to produce a CV close to zero. Instead, the median CV was 0.35. This shows that the combined sensor and peak-detection pipeline has a non-trivial noise floor; even a simple mechanical motion does not look perfectly regular after measurement and processing.</p>
+              <p>That changes how the toy data should be used. It is not a zero-noise model of an ideal swimming stroke, and it cannot be subtracted from real-swimmer motion to reveal technique defects. Its stronger role is as a <strong>measurement baseline</strong>: it helps separate variability introduced by sensing and detection from variability that may genuinely reflect a swimmer&apos;s rhythm.</p>
+
+              <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>
+              <ol>
+                <li><strong>Device reliability was confirmed:</strong> 15 active trials and 871.5 seconds of repeated submersion produced no water-ingress or connection problems.</li>
+                <li><strong>Data completeness was confirmed:</strong> the full 6,765-row log was recorded with a stable sampling interval and no missing values.</li>
+                <li><strong>A first periodic-motion baseline was established:</strong> 63–122 cycles per minute and a period CV of 0.22–0.46 provide concrete starting values for window size and noise tolerance.</li>
+              </ol>
+              <p>The pilot also identified two issues early—an unexpectedly low sampling rate and more measurement variability than assumed. Discovering both before involving a real swimmer is precisely why this small experiment was worthwhile.</p>
+
+              <h2 id="Data-and-Code"><a href="#Data-and-Code" class="headerlink" title="Data and Code"></a>Data and Code</h2>
+              <p>The raw recording and analysis script used for the plots are available with this post:</p>
+              <ul>
+                <li><a href="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/fixed_rotation_toy_imu_data.csv" download>Download the IMU dataset (CSV)</a></li>
+                <li><a href="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/analyze_toy_periodicity.py" download>Download the periodicity analysis script (Python)</a></li>
+              </ul>
+              <p><em>Note: Data processing, chart generation, and parts of the writing were completed with AI assistance (Claude). The experiment design, execution, and conclusions are the author&apos;s own.</em></p>
+            </div>
+            <footer class="article-footer">
+              <a data-url="http://example.com/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/" data-title="Pre-Deployment IMU Validation Experiment Using a Fixed-Rotation Swimming Toy" class="article-share-link"><span class="fa fa-share">Share</span></a>
+            </footer>
+          </div>
+
+          <nav id="article-nav">
+            <a href="/2026/05/02/FPGA-Based-Real-Time-Safety-Monitoring-System-for-Water-Sports-with-Diffusion-Based-Droplet-Removal/" id="article-nav-older" class="article-nav-link-wrap">
+              <strong class="article-nav-caption">Older</strong>
+              <div class="article-nav-title">FPGA-Based Real-Time Safety Monitoring System for Water Sports with Diffusion-Based Droplet Removal</div>
+            </a>
+          </nav>
+        </article></section>
+
+        <aside id="sidebar">
+          <div class="widget-wrap">
+            <h3 class="widget-title">Archives</h3>
+            <div class="widget">
+              <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">May 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">November 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">October 2025</a></li></ul>
+            </div>
+          </div>
+          <div class="widget-wrap">
+            <h3 class="widget-title">Recent Posts</h3>
+            <div class="widget">
+              <ul>
+          <li><a href="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/">Pre-Deployment IMU Validation Experiment Using a Fixed-Rotation Swimming Toy</a></li>
+          <li><a href="/2026/05/02/FPGA-Based-Real-Time-Safety-Monitoring-System-for-Water-Sports-with-Diffusion-Based-Droplet-Removal/">FPGA-Based Real-Time Safety Monitoring System for Water Sports with Diffusion-Based Droplet Removal</a></li>
+          <li><a href="/2025/11/02/IMU_Data_Acquisition_and_Storage_Experiment_Seeed_XIAO_JY901_EN/">IMU Data Acquisition and Storage Experiment Based on Seeed XIAO and JY901</a></li>
+          <li><a href="/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/">Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901</a></li>
+          <li><a href="/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/">Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm</a></li>
+          <li><a href="/2025/10/30/Swimming_Research_Topic_English/">When Engineering Meets Swimming: Turning Technique into Data</a></li>
+        </ul>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <footer id="footer">
+        <div class="outer"><div id="footer-info" class="inner">&copy; 2026 John Doe<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></div></div>
+      </footer>
+    </div>
+    <nav id="mobile-nav">
+      <a href="/" class="mobile-nav-link">Home</a>
+      <a href="/archives" class="mobile-nav-link">Archives</a>
+    </nav>
+    <script src="/js/jquery-3.6.4.min.js"></script>
+    <script src="/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
