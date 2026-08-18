@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IMU Data Validation from Personal Swim Training: Rhythm Changes and Motion State Reflection | Kathy Xu Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A real-world validation of a wrist-worn IMU using a personal swim training session, examining swim-rest structure, stroke rhythm, fatigue, body roll, and turn events.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="IMU Data Validation from Personal Swim Training: Rhythm Changes and Motion State Reflection">
+  <meta property="og:url" content="http://example.com/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/index.html">
+  <meta property="og:site_name" content="Kathy Xu Lab">
+  <meta property="og:description" content="Can a wrist-worn IMU reflect the real structure and changing rhythm of a personal swim training session?">
+  <meta property="og:image" content="http://example.com/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/swimming_pool_comic_cover_v2.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-18T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-08-18T00:00:00.000Z">
+  <meta property="article:author" content="John Doe">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" href="/atom.xml" title="Kathy Xu Lab" type="application/atom+xml">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+  <meta name="generator" content="Hexo 8.1.0">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+        <div id="banner"></div>
+        <div id="header-outer" class="outer">
+          <div id="header-title" class="inner"><h1 id="logo-wrap"><a href="/" id="logo">Kathy Xu Lab</a></h1></div>
+          <div id="header-inner" class="inner">
+            <nav id="main-nav">
+              <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+              <a class="main-nav-link" href="/">Home</a>
+              <a class="main-nav-link" href="/archives">Archives</a>
+            </nav>
+            <nav id="sub-nav">
+              <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+              <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+            </nav>
+            <div id="search-form-wrap"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="outer">
+        <section id="main"><article id="post-IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <div class="article-meta">
+            <a href="/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/" class="article-date"><time class="dt-published" datetime="2026-08-18T00:00:00.000Z" itemprop="datePublished">2026-08-18</time></a>
+          </div>
+          <div class="article-inner">
+            <header class="article-header"><h1 class="p-name article-title" itemprop="headline name">IMU Data Validation from Personal Swim Training: Rhythm Changes and Motion State Reflection</h1></header>
+            <div class="e-content article-entry" itemprop="articleBody">
+              <p><img src="/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/swimming_pool_comic_cover_v2.png" alt="Comic-style indoor swimming pool with IMU acceleration, gyroscope, stroke, and turn signals"></p>
+
+              <h2 id="Background-and-Motivation"><a href="#Background-and-Motivation" class="headerlink" title="Background and Motivation"></a>Background and Motivation</h2>
+              <p>After the <a href="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/">fixed-rotation toy baseline experiment</a> confirmed waterproofing, data integrity, and a cycle-CV noise baseline of roughly 0.22–0.46, it was time to test the device on its real target: a full training record collected while I wore the IMU in the pool.</p>
+              <p>This analysis does not treat the toy as a standard movement template. Instead, it asks a more useful question for this stage: <strong>do the recorded rhythm, body roll, pauses, and high-acceleration events agree with how I remember the session?</strong> Answering that question helps validate the sensor as a record of real motion state and prepares the data pipeline for later stroke-count and stroke-style analysis.</p>
+
+              <h2 id="Objectives"><a href="#Objectives" class="headerlink" title="Objectives"></a>Objectives</h2>
+              <ol>
+                <li>Separate active swimming from resting periods and recover the session&apos;s overall structure.</li>
+                <li>Track stroke rate and rhythm consistency over time instead of relying on a few isolated summary values.</li>
+                <li>Compare the signals with my memory of intensity, fatigue, pauses, and changes in rhythm.</li>
+                <li>Identify findings that are sufficiently supported to guide future training analysis and algorithm development.</li>
+              </ol>
+
+              <h2 id="Data-and-Methods"><a href="#Data-and-Methods" class="headerlink" title="Data and Methods"></a>Data and Methods</h2>
+              <p>The dataset contains <strong>30,607 rows</strong> spanning <strong>3,959.3 seconds</strong>, or approximately 66 minutes. It includes three-axis acceleration, three-axis angular velocity, and fused orientation angles. The median sampling interval is 129 ms—about <strong>7.75 Hz</strong>—which is consistent with the toy baseline.</p>
+              <p>A 60-second window with a 20-second stride was moved across the recording. Within each window:</p>
+              <ul>
+                <li>Peaks in combined gyroscope magnitude were used to estimate stroke cycles.</li>
+                <li>Stroke rate was calculated as 60 divided by the mean cycle period.</li>
+                <li>Rhythm consistency was represented by period CV: standard deviation divided by mean period.</li>
+                <li>The 5th-to-95th percentile range of Angle X was used as a body-roll indicator.</li>
+                <li>Windows with fewer than eight valid cycles were excluded from stroke statistics.</li>
+              </ul>
+              <p>Acceleration-magnitude peaks above 3 g were separately marked as suspected turns or wall push-offs.</p>
+
+              <pre><code>from scipy.signal import find_peaks
+import numpy as np
+
+def sliding_stroke_stats(t, gyro, angle_x, win_s=60.0,
+                         stride_s=20.0, min_strokes=8):
+    dt = np.median(np.diff(t))
+    starts = np.arange(t[0], t[-1] - win_s, stride_s)
+    rows = []
+    for start in starts:
+        mask = (t &gt;= start) &amp; (t &lt; start + win_s)
+        tw, sw, aw = t[mask], gyro[mask], angle_x[mask]
+        peaks, _ = find_peaks(
+            sw,
+            distance=max(1, int(round(0.4 / dt))),
+            prominence=np.std(sw) * 0.5
+        )
+        periods = np.diff(tw[peaks])
+        periods = periods[(periods &gt;= 0.4) &amp; (periods &lt;= 3.0)]
+        if len(periods) &gt;= min_strokes:
+            rows.append({
+                "t_mid": start + win_s / 2,
+                "sr": 60 / periods.mean(),
+                "cv": periods.std() / periods.mean(),
+                "roll_range": np.percentile(aw, 95)
+                              - np.percentile(aw, 5)
+            })
+    return rows</code></pre>
+
+              <h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2>
+              <p><img loading="lazy" src="/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/session_overview.png" alt="Full swim-session overview of gyroscope magnitude, stroke rate, rhythm CV, body roll, and suspected turns"></p>
+              <p><em>Figure 1: Full-session overview. From top to bottom: gyroscope magnitude and suspected turn events, stroke rate, rhythm CV, and side-body roll range.</em></p>
+
+              <h3 id="Finding-1-Two-Training-Blocks"><a href="#Finding-1-Two-Training-Blocks" class="headerlink" title="Finding 1: Two Training Blocks"></a>Finding 1: Two Training Blocks Separated by a Long Still Period</h3>
+              <p>Activity was concentrated in two intervals: approximately <strong>0–1600 seconds</strong> and <strong>3450–3950 seconds</strong>. Between them, both gyroscope magnitude and side-body roll remained at zero for about 29 minutes. The recording was therefore not one continuous swim but two separate training blocks, with the device either off the body or completely still during the gap.</p>
+
+              <h3 id="Finding-2-Block-A-Interval-Structure"><a href="#Finding-2-Block-A-Interval-Structure" class="headerlink" title="Finding 2: Block A Interval Structure"></a>Finding 2: Block A Revealed a Swim–Rest Interval Structure</h3>
+              <p><img loading="lazy" src="/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/block_a_interval_structure.png" alt="Stroke statistics and body-roll range for Block A"></p>
+              <p><em>Figure 2: Block A (0–1650 s). Stroke rate and CV appear above; body-roll range appears below, with the dashed line marking the stillness threshold.</em></p>
+              <p>Body-roll range repeatedly switched between near-full amplitude—roughly 300–350 degrees—and near zero. Seven back-and-forth cycles were visible, and the roll troughs generally aligned with stroke-rate troughs. Because two independent indicators tell the same story, Block A is much more consistent with multi-set interval training than with a steady continuous swim.</p>
+
+              <h3 id="Finding-3-Block-B-Fast-Start-and-Fade"><a href="#Finding-3-Block-B-Fast-Start-and-Fade" class="headerlink" title="Finding 3: Block B Fast Start and Fade"></a>Finding 3: Block B Repeated the Same “Fast Start, Then Fade” Pattern Twice</h3>
+              <p><img loading="lazy" src="/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/block_b_fade_and_turns.png" alt="Gyroscope, turn events, stroke rate, and rhythm CV for Block B"></p>
+              <p><em>Figure 3: Block B (3400–3970 s). Gyroscope magnitude and turn events appear above, followed by stroke rate and rhythm CV.</em></p>
+              <p>Block B contained two shorter active segments, around 3450–3600 s and 3750–3960 s, separated by another pause of roughly 150 seconds. Both segments followed almost the same trajectory: stroke rate began around 80–87 strokes per minute while CV was low at 0.28–0.35, then stroke rate fell to 56–65 and CV rose to 0.55–0.64.</p>
+              <p>The repetition makes this stronger than a one-off observation. It resembles the subjective experience of high-intensity short repeats: the first strokes are fast and clean, then fatigue lowers cadence and disrupts timing.</p>
+
+              <h3 id="Finding-4-Late-Block-A-Rhythm-Breakdown"><a href="#Finding-4-Late-Block-A-Rhythm-Breakdown" class="headerlink" title="Finding 4: Late Block A Rhythm Breakdown"></a>Finding 4: Rhythm Broke Down Near the End of Block A</h3>
+              <p>In the final sliding window before the long rest, around 1560–1600 s, CV rose from roughly 0.4 to <strong>0.64</strong>. A similar loss of consistency appeared late in Block B. The recurrence suggests that worsening rhythm after sustained exertion is a real feature of this session rather than an isolated processing artifact.</p>
+
+              <h3 id="Finding-5-Turn-Event-Contrast"><a href="#Finding-5-Turn-Event-Contrast" class="headerlink" title="Finding 5: Turn Event Contrast"></a>Finding 5: Suspected Turn Events Differed Sharply Between Blocks</h3>
+              <p>Using acceleration peaks above 3 g, the detector found only <strong>2 suspected turn or push-off events</strong> in Block A&apos;s 27 minutes but <strong>12 events</strong> in Block B&apos;s 8 minutes. Ten of the Block B events fell within the 74 seconds from 3750 to 3824 s.</p>
+              <p>The signal contrast is clear, but its exact training meaning cannot yet be established from IMU data alone. It needs to be checked against the day&apos;s actual set plan—short-distance repeats, wall push-offs, sprints, or another movement could all contribute.</p>
+
+              <h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2>
+              <p>Together, the five findings produce a coherent account of the session. Block A resembles repeated swim–rest intervals. Block B resembles two higher-intensity repeats, both showing a fatigue curve from fast and stable to slower and less regular. These interpretations can be compared with my own memory of the session, its perceived intensity, and the intended training plan.</p>
+              <p>The 60-second window with a 20-second stride also revealed more structure than a coarse energy-based split. A coarse analysis only says whether movement exists; a finer window shows <em>how</em> the movement changes. Window granularity will therefore be an important design choice in future automatic segmentation and stroke-recognition algorithms.</p>
+
+              <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>
+              <p>The central result is that <strong>the IMU data can meaningfully reflect the real motion state of this personal swim training session</strong>. It separates swimming from pauses, recovers distinct training blocks, reveals repeated changes in speed and rhythm, and detects discrete high-acceleration events that may correspond to turns or push-offs.</p>
+              <p>A standard movement template is not required to build a credible interpretation. Cross-checking the signals against personal training experience already provides useful validation—and gives concrete benchmarks for turning this sliding-window and peak-detection workflow into a formal stroke-counting and rhythm-recognition algorithm.</p>
+
+              <h2 id="Reflection-and-Next-Step"><a href="#Reflection-and-Next-Step" class="headerlink" title="Reflection and Next Step"></a>Reflection and Next Step</h2>
+              <p>The most surprising lesson was how strongly the interpretation changed with the level of detail. Large-block statistics supported only a vague statement that the second half looked less regular. The sliding-window view exposed two separate “fast start–fade” signatures, almost like a fingerprint of the session&apos;s intensity.</p>
+              <p>One uncertainty remains: the large difference in suspected turn counts between Blocks A and B. Future recordings should be accompanied by a simple time-stamped training log. Even a short note describing what was swum and when would make it possible to cross-validate the IMU record instead of relying on retrospective inference alone.</p>
+
+              <h2 id="Data-and-Code"><a href="#Data-and-Code" class="headerlink" title="Data and Code"></a>Data and Code</h2>
+              <ul>
+                <li><a href="/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/real_swimmer_session_imu_data.csv" download>Download the personal swim training IMU dataset (CSV)</a></li>
+                <li><a href="/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/analyze_session_structure.py" download>Download the session-structure analysis script (Python)</a></li>
+              </ul>
+              <p><em>Note: The data comes from a swimming session recorded while the author personally wore the IMU. Data processing, chart generation, and part of the text organization were completed with AI assistance (Claude). The experiment, comparison against training memory, and conclusions are the author&apos;s own.</em></p>
+            </div>
+            <footer class="article-footer"><a data-url="http://example.com/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/" data-title="IMU Data Validation from Personal Swim Training: Rhythm Changes and Motion State Reflection" class="article-share-link"><span class="fa fa-share">Share</span></a></footer>
+          </div>
+
+          <nav id="article-nav">
+            <a href="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/" id="article-nav-older" class="article-nav-link-wrap">
+              <strong class="article-nav-caption">Older</strong>
+              <div class="article-nav-title">Pre-Deployment IMU Validation Experiment Using a Fixed-Rotation Swimming Toy</div>
+            </a>
+          </nav>
+        </article></section>
+
+        <aside id="sidebar">
+          <div class="widget-wrap"><h3 class="widget-title">Archives</h3><div class="widget"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">May 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">November 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">October 2025</a></li></ul></div></div>
+          <div class="widget-wrap"><h3 class="widget-title">Recent Posts</h3><div class="widget"><ul>
+          <li><a href="/2026/08/18/IMU-Data-Validation-from-Personal-Swim-Training-Rhythm-Changes-and-Motion-State-Reflection/">IMU Data Validation from Personal Swim Training: Rhythm Changes and Motion State Reflection</a></li>
+          <li><a href="/2026/08/14/Pre-Deployment-IMU-Validation-Experiment-Using-a-Fixed-Rotation-Swimming-Toy/">Pre-Deployment IMU Validation Experiment Using a Fixed-Rotation Swimming Toy</a></li>
+          <li><a href="/2026/05/02/FPGA-Based-Real-Time-Safety-Monitoring-System-for-Water-Sports-with-Diffusion-Based-Droplet-Removal/">FPGA-Based Real-Time Safety Monitoring System for Water Sports with Diffusion-Based Droplet Removal</a></li>
+          <li><a href="/2025/11/02/IMU_Data_Acquisition_and_Storage_Experiment_Seeed_XIAO_JY901_EN/">IMU Data Acquisition and Storage Experiment Based on Seeed XIAO and JY901</a></li>
+          <li><a href="/2025/10/31/Wearable%20Swimming%20Motion%20Data%20Acquisition%20System%20Based%20on%20XIAO%20and%20JY901/">Wearable Swimming Motion Data Acquisition System Based on XIAO and JY901</a></li>
+          <li><a href="/2025/10/31/Design_Concept_of_Wearable_IMU_Based_System_for_Swimming_Rhythm_EN/">Design Concept of a Wearable IMU-Based System for Real-Time Feedback on Swimming Rhythm</a></li>
+        </ul></div></div>
+        </aside>
+      </div>
+
+      <footer id="footer"><div class="outer"><div id="footer-info" class="inner">&copy; 2026 John Doe<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></div></div></footer>
+    </div>
+    <nav id="mobile-nav"><a href="/" class="mobile-nav-link">Home</a><a href="/archives" class="mobile-nav-link">Archives</a></nav>
+    <script src="/js/jquery-3.6.4.min.js"></script>
+    <script src="/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
